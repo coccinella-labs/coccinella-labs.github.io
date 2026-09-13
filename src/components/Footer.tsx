@@ -9,7 +9,7 @@ const links = [
   { href: "https://github.com/coccinella-labs", label: "GitHub" },
   { href: "https://github.com/palmshed", label: "A Palmshed company" },
   { href: licenseUrl, label: "License" },
-  { href: "mailto:hello@coccinella-labs.dev", label: "Contact" },
+  { href: "mailto:coccinella.labs@icloud.com", label: "Contact" },
   { href: "/about/", label: "About" },
 ]
 
