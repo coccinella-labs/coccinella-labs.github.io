@@ -48,7 +48,7 @@ export default function Hero() {
           />
           <Image
             src="/coccinella-labs-icon.png"
-            alt="Libnudget organization mark"
+            alt="Coccinella Labs organization mark"
             width={280}
             height={280}
             sizes="64px"
