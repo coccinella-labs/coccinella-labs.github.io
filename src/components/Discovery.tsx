@@ -105,7 +105,7 @@ function DiscoveryPanel() {
         />
       </div>
 
-      <div className="grid gap-8 p-5 lg:grid-cols-[280px_1fr]">
+      <div className="grid min-w-0 gap-8 p-5 lg:grid-cols-[280px_minmax(0,1fr)]">
         <div className="flex flex-col gap-6">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-muted">
@@ -151,7 +151,7 @@ function DiscoveryPanel() {
           </div>
         </div>
 
-        <div>
+        <div className="min-w-0">
           {results.length > 0 ? (
             <ul className="flex flex-col">
               {results.map((project) => (
@@ -193,7 +193,7 @@ function DiscoveryFallback() {
       <div className="border-b border-line p-5">
         <div className="h-10 rounded-lg border border-line" />
       </div>
-      <div className="grid gap-8 p-5 lg:grid-cols-[280px_1fr]">
+      <div className="grid min-w-0 gap-8 p-5 lg:grid-cols-[280px_minmax(0,1fr)]">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <div className="h-4 w-20 rounded bg-line" />
