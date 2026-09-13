@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #111111;
+  --line: #ececec;
+  --muted: #6b7280;
+  --accent: #1f883d;
+  --surface: #fafafa;
+  color-scheme: light;
+}
+
+.dark {
+  --background: #0d1117;
+  --foreground: #e6edf3;
+  --line: #30363d;
+  --muted: #8b949e;
+  --accent: #3fb950;
+  --surface: #161b22;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-surface: var(--surface);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body,
+  header,
+  nav,
+  main,
+  section,
+  footer,
+  a,
+  button,
+  div,
+  p,
+  span,
+  li,
+  ul,
+  ol,
+  h1,
+  h2,
+  h3,
+  input,
+  label,
+  pre,
+  code {
+    transition-property: background-color, border-color, color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
