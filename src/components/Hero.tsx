@@ -34,7 +34,6 @@ export default function Hero() {
           <video
             className="absolute inset-0 size-full object-contain"
             autoPlay
-            loop
             muted
             playsInline
             poster="/coccinella-labs-icon.png"
