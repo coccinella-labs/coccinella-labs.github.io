@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <g transform="translate(500 120) scale(0.390625)">
+    <rect width="512" height="512" rx="112" fill="#1f883d"/>
+    <path d="M150 176 L252 256 L150 336" fill="none" stroke="#ffffff" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="282" y="300" width="150" height="40" rx="20" fill="#ffffff"/>
+  </g>
+  <text x="600" y="452" text-anchor="middle" font-family="Inter, -apple-system, Helvetica Neue, Arial, sans-serif" font-size="92" font-weight="700" fill="#111111">coccinella-labs</text>
+  <text x="600" y="518" text-anchor="middle" font-family="Inter, -apple-system, Helvetica Neue, Arial, sans-serif" font-size="34" fill="#6b7280">Small developer tools.</text>
+</svg>
