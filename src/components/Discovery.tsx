@@ -45,6 +45,7 @@ function DiscoveryPanel() {
   const [activeTypes, setActiveTypes] = useState<string[]>(() =>
     initialTypes(searchParams)
   )
+  const [expanded, setExpanded] = useState(false)
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -108,25 +109,33 @@ function DiscoveryPanel() {
       <div className="grid min-w-0 gap-8 p-5 lg:grid-cols-[280px_minmax(0,1fr)]">
         <div className="flex flex-col gap-6">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-muted">
-              Language
-            </p>
-            <div className="mt-3 flex flex-col gap-2">
-              {languages.map((language) => (
-                <label
-                  key={language}
-                  className="flex cursor-pointer items-center gap-2.5 text-sm text-foreground/80"
-                >
-                  <input
-                    type="checkbox"
-                    checked={activeLanguages.includes(language)}
-                    onChange={() => toggleLanguage(language)}
-                    className="size-4 rounded border-line text-accent focus:ring-accent focus:ring-offset-0"
-                  />
-                  {language}
-                </label>
-              ))}
-            </div>
+            <details className="rounded-lg border border-line">
+              <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-2.5 transition-colors hover:text-foreground [&::-webkit-details-marker]:hidden">
+                <span className="text-xs font-semibold uppercase tracking-widest text-muted">
+                  Language
+                  {activeLanguages.length > 0
+                    ? ` · ${activeLanguages.length}`
+                    : ""}
+                </span>
+                <span className="font-mono text-xs text-muted">+</span>
+              </summary>
+              <div className="mt-1 flex flex-col gap-2 border-t border-line px-3 py-3">
+                {languages.map((language) => (
+                  <label
+                    key={language}
+                    className="flex cursor-pointer items-center gap-2.5 text-sm text-foreground/80"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={activeLanguages.includes(language)}
+                      onChange={() => toggleLanguage(language)}
+                      className="size-4 rounded border-line text-accent focus:ring-accent focus:ring-offset-0"
+                    />
+                    {language}
+                  </label>
+                ))}
+              </div>
+            </details>
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-muted">
@@ -152,9 +161,13 @@ function DiscoveryPanel() {
         </div>
 
         <div className="min-w-0">
+          <p className="mb-2 font-mono text-[11px] text-muted">
+            {results.length} of {projects.length} tools
+          </p>
           {results.length > 0 ? (
-            <ul className="flex flex-col">
-              {results.map((project) => (
+            <>
+              <ul className="flex flex-col">
+                {(expanded ? results : results.slice(0, 30)).map((project) => (
                 <li
                   key={project.name}
                   className="flex flex-col items-start gap-2 border-b border-line py-4 last:border-b-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
@@ -175,7 +188,17 @@ function DiscoveryPanel() {
                   </p>
                 </li>
               ))}
-            </ul>
+              </ul>
+              {!expanded && results.length > 30 ? (
+                <button
+                  type="button"
+                  onClick={() => setExpanded(true)}
+                  className="mt-4 rounded-lg border border-line px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-foreground"
+                >
+                  Show all {results.length}
+                </button>
+              ) : null}
+            </>
           ) : (
             <p className="py-12 text-center text-sm text-muted">
               No projects match those filters.
@@ -220,7 +243,6 @@ export default function Discovery() {
       eyebrow="Discovery"
       title="Find a tool."
       description="Search by name or description, then narrow by language and type. Filters are shared in the URL."
-      className="bg-surface"
     >
       <Suspense fallback={<DiscoveryFallback />}>
         <DiscoveryPanel />
