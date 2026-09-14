@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import SiteHeader from "@/components/SiteHeader"
+import Footer from "@/components/Footer"
+import { Wallpaper } from "@/components/OSHome"
 import { principles } from "@/lib/projects"
 
 export const metadata: Metadata = {
@@ -10,7 +13,11 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="flex-1">
+    <div className="relative min-h-screen overflow-x-clip bg-[#f1f3f6] text-foreground dark:bg-[#0b0e14]">
+      <Wallpaper />
+      <div className="relative flex min-h-screen flex-col">
+        <SiteHeader />
+        <main className="flex-1">
       <div className="border-b border-line">
         <div className="mx-auto w-full max-w-[1200px] px-6 py-12 lg:px-8 lg:py-16">
           <Link
@@ -52,17 +59,19 @@ export default function AboutPage() {
             >
               Palmshed
             </a>
-            , which builds open-source AI tools, agents, and SDKs, and{" "}
+            , which builds open-source AI tools, agents, and SDKs, and
+            harpertoken, our machine-learning work on{" "}
             <a
-              href="https://github.com/coccinella-labs"
+              href="https://huggingface.co/harpertoken"
               target="_blank"
               rel="noopener noreferrer"
               className="font-medium text-accent underline-offset-4 transition-colors hover:underline"
             >
-              harpertoken
-            </a>
-            . Together, the projects cover ambitious systems, focused
-            software, and the small utilities that make daily work easier.
+              Hugging Face
+            </a>{" "}
+            with open models, datasets, and Spaces. Together, the projects
+            cover ambitious systems, focused software, and the small
+            utilities that make daily work easier.
           </p>
           <ul className="mt-10 flex flex-col gap-3">
             {principles.map((principle) => (
@@ -80,6 +89,9 @@ export default function AboutPage() {
           </Link>
         </div>
       </div>
-    </main>
+        </main>
+        <Footer />
+      </div>
+    </div>
   )
 }
