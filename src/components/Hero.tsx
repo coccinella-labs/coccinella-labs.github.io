@@ -1,4 +1,4 @@
-import Image from "next/image"
+import HeroVideo from "./HeroVideo"
 
 export default function Hero() {
   return (
@@ -30,31 +30,7 @@ export default function Hero() {
             </a>
           </div>
         </div>
-        <div className="relative mx-auto aspect-video w-full max-w-lg overflow-hidden rounded-lg border border-line bg-surface">
-          <video
-            className="absolute inset-0 size-full object-contain"
-            autoPlay
-            muted
-            playsInline
-            poster="/coccinella-labs-icon.png"
-            aria-hidden="true"
-          >
-            <source src="/coccinella-labs-wordmark.mp4" type="video/mp4" />
-          </video>
-          <div
-            className="absolute inset-0 bg-background/10"
-            aria-hidden="true"
-          />
-          <Image
-            src="/coccinella-labs-icon.png"
-            alt="Coccinella Labs organization mark"
-            width={280}
-            height={280}
-            sizes="64px"
-            className="absolute bottom-4 left-4 size-14 rounded-md bg-background/85 p-2 object-contain shadow-lg lg:size-16"
-            priority
-          />
-        </div>
+        <HeroVideo />
       </div>
     </section>
   )
