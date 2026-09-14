@@ -18,7 +18,10 @@ export default function Section({
   className = "",
 }: SectionProps) {
   return (
-    <section id={id} className={`py-20 lg:py-28 ${className}`}>
+    <section
+      id={id}
+      className={`scroll-mt-16 py-20 lg:py-28 ${className}`}
+    >
       <div className="mx-auto w-full max-w-[1200px] px-6 lg:px-8">
         <div className="max-w-2xl">
           {eyebrow ? (
