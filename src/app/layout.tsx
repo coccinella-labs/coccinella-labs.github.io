@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 
 const inter = Inter({
@@ -67,7 +68,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <script
+        <Script
+          id="coccinella-labs-theme"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function () {
   try {
