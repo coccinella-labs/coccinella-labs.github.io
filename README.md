@@ -35,6 +35,7 @@ to leave behind.
 
 ```bash
 npm install
+npm run setup:hooks
 npm run dev
 ```
 
@@ -72,8 +73,10 @@ All content lives in typed data files under `src/lib/`, and interactivity
 ## Deployment
 
 Deployment is automatic via GitHub Actions (`.github/workflows/deploy.yml`).
-On every push to `main`, the site is built and the static output is pushed to
-the `gh-pages` branch, which GitHub Pages serves.
+Pushes to `main` that touch `src/**`, `public/**`, or build config are
+built and the static output is pushed to the `gh-pages` branch, which
+GitHub Pages serves. Docs-only changes do not redeploy; the workflow
+can also be dispatched manually.
 
 ### One-time setup
 
@@ -100,11 +103,13 @@ src/
   app/about/      # About page
   app/projects/   # Static project pages (/projects/[slug])
   components/     # UI sections (one per site section)
-  lib/            # Data: projects, categories, activity, copy
+  os/             # coccinella-labs OS: shell, app registry, mockups, windows
+  os/windows/     # App windows, taskbar, Hugging Face panel
+  lib/            # Data: projects, categories, activity, copy; live OS data
 public/           # Static assets served as-is
+.githooks/        # Local pre-commit hook (see CONTRIBUTING.md)
 .github/
-  workflows/      # Pages deployment workflow
-  profile/        # Organization profile (repo README preview)
+  workflows/      # CI verification and Pages deployment workflows
 ```
 
 ## Project pages
