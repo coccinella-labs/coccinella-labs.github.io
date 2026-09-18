@@ -1,0 +1,27 @@
+#!/bin/sh
+# Pre-commit checks for coccinella-labs.github.io. Mirrors CI (lint +
+# typecheck, both blocking) and reports prettier drift on staged files
+# as a non-blocking warning.
+#
+# Install once per clone with:
+#   git config core.hooksPath .githooks
+# or:
+#   npm run setup:hooks
+set -eu
+
+echo "pre-commit: eslint..."
+npm run lint --silent
+
+echo "pre-commit: typecheck..."
+npm run typecheck --silent
+
+staged="$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx|mjs|cjs|css|md|json)$' || true)"
+if [ -n "$staged" ]; then
+  echo "pre-commit: prettier check (staged files)..."
+  if ! printf '%s\n' "$staged" | xargs npx --no-install prettier --check; then
+    echo "pre-commit: prettier reports style drift (warning only, commit continues)."
+    echo "To fix: npx prettier --write <file>"
+  fi
+else
+  echo "pre-commit: no staged source files to check with prettier."
+fi

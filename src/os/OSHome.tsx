@@ -2,126 +2,13 @@
 
 import Image from "next/image"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import {
-  HarperMockup,
-  OrganicTypingMockup,
-  MemoraxxMockup,
-  HautofixMockup,
-  BrowserMockup,
-  VesperMockup,
-  PressMockup,
-  TokensdkMockup,
-  OmnnitypeMockup,
-  VertexMockup,
-} from "./mockups"
+import { HarperMockup } from "./mockups"
 import { fmtOSDate, fmtOSTime, timeAgo, useBattery, useConnection, useHFItems, useOnline, useOrgRepos, useRtt } from "@/lib/osLive"
-import type { App, WinState } from "./os/types"
-import AppWindow from "./os/AppWindow"
-import Taskbar from "./os/Taskbar"
-
-const apps: App[] = [
-  {
-    name: "organictyping",
-    tag: "Keystroke analytics",
-    glyph: "~",
-    tint: "from-rose-500/70 to-amber-400/50",
-    repo: "https://github.com/coccinella-labs/organictyping",
-    source: "github",
-    Mockup: OrganicTypingMockup,
-  },
-  {
-    name: "memoraxx",
-    tag: "Local LLM client",
-    glyph: "▮",
-    tint: "from-teal-500/70 to-emerald-400/50",
-    repo: "https://github.com/coccinella-labs/memoraxx",
-    source: "github",
-    Mockup: MemoraxxMockup,
-  },
-  {
-    name: "hautofix",
-    tag: "AI text edit",
-    glyph: "✎",
-    tint: "from-indigo-500/70 to-sky-400/50",
-    repo: "https://github.com/coccinella-labs/hautofix",
-    source: "github",
-    Mockup: HautofixMockup,
-  },
-  {
-    name: "browser",
-    tag: "Desktop browser",
-    glyph: "◎",
-    tint: "from-orange-500/70 to-rose-400/50",
-    repo: "https://github.com/coccinella-labs/browser",
-    source: "github",
-    Mockup: BrowserMockup,
-  },
-  {
-    name: "press",
-    tag: "Bookshelf",
-    glyph: "▤",
-    tint: "from-sky-500/70 to-violet-400/50",
-    repo: "https://github.com/coccinella-labs/press",
-    source: "github",
-    Mockup: PressMockup,
-  },
-  {
-    name: "vesper",
-    tag: "Gemini · PR review",
-    glyph: "◇",
-    tint: "from-fuchsia-500/70 to-pink-400/50",
-    repo: "https://github.com/coccinella-labs/vesper",
-    source: "github",
-    Mockup: VesperMockup,
-  },
-  {
-    name: "tokensdk",
-    tag: "Harpertoken SDK",
-    glyph: "◉",
-    tint: "from-cyan-500/70 to-blue-400/50",
-    repo: "https://github.com/coccinella-labs/tokensdk",
-    source: "github",
-    Mockup: TokensdkMockup,
-  },
-  {
-    name: "omnitype",
-    tag: "Rust type checker",
-    glyph: "#",
-    tint: "from-amber-500/70 to-yellow-400/50",
-    repo: "https://github.com/coccinella-labs/omnitype",
-    source: "github",
-    Mockup: OmnnitypeMockup,
-  },
-  {
-    name: "vertex",
-    tag: "Repo insight",
-    glyph: "⌗",
-    tint: "from-violet-500/70 to-indigo-400/50",
-    repo: "https://github.com/coccinella-labs/vertex",
-    source: "github",
-    Mockup: VertexMockup,
-  },
-  {
-    name: "harpertoken",
-    tag: "Models · Spaces · live",
-    glyph: "♥",
-    tint: "from-yellow-500/70 to-amber-400/50",
-    repo: "https://huggingface.co/harpertoken",
-    source: "hf",
-  },
-]
-
-const harperApp: App = {
-  name: "harper",
-  tag: "Agent harness",
-  glyph: "◆",
-  tint: "from-[#f34b7d] to-[#f34b7d]/40",
-  repo: "https://github.com/coccinella-labs/harper",
-  source: "github",
-  Mockup: HarperMockup,
-}
-
-const allApps: App[] = [harperApp, ...apps]
+import type { App, WinState } from "./types"
+import { OS_CODENAME, OS_NAME, OS_VERSION } from "./types"
+import { allApps, apps, harperApp } from "./apps"
+import AppWindow from "./windows/AppWindow"
+import Taskbar from "./windows/Taskbar"
 
 const focusable =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/40 dark:focus-visible:ring-white/60"
@@ -174,8 +61,11 @@ function StatusBar() {
       <div className="flex items-center gap-3 text-xs">
         <span className="font-mono">{date}</span>
         <span className="hidden text-neutral-900/20 sm:inline dark:text-white/20">·</span>
-        <span className="hidden font-mono text-xs tracking-tight sm:inline">
-          coccinella-labs OS
+        <span
+          className="hidden font-mono text-xs tracking-tight sm:inline"
+          title={`${OS_CODENAME}`}
+        >
+          {OS_NAME} <span className="opacity-60">· v{OS_VERSION}</span>
         </span>
       </div>
       <div className="flex items-center gap-3">
@@ -296,7 +186,10 @@ function BootScreen({ onDone }: { onDone: () => void }) {
         className="size-16 rounded-full sm:size-[72px]"
       />
       <p className="font-mono text-sm tracking-tight text-white/70">
-        coccinella-labs OS
+        {OS_NAME}
+      </p>
+      <p className="font-mono text-[10px] tracking-tight text-white/30">
+        v{OS_VERSION} · {OS_CODENAME}
       </p>
       <div className="h-1 w-48 overflow-hidden rounded-full bg-white/10">
         <div className="h-full w-1/3 animate-progress bg-[#f34b7d]/80" />

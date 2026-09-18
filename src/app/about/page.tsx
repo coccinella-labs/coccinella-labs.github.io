@@ -2,8 +2,9 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import SiteHeader from "@/components/SiteHeader"
 import Footer from "@/components/Footer"
-import { Wallpaper } from "@/components/OSHome"
+import { Wallpaper } from "@/os/OSHome"
 import { principles } from "@/lib/projects"
+import { OS_CODENAME, OS_HISTORY, OS_NAME, OS_VERSION } from "@/os/types"
 
 export const metadata: Metadata = {
   title: "About",
@@ -81,6 +82,34 @@ export default function AboutPage() {
               </li>
             ))}
           </ul>
+          <div className="mt-10 overflow-hidden rounded-xl border border-line">
+            <div className="flex items-center justify-between gap-3 border-b border-line p-5">
+              <h2 className="text-base font-semibold">{OS_NAME}</h2>
+              <span className="rounded-full border border-line px-2.5 py-0.5 font-mono text-xs text-muted">
+                v{OS_VERSION} · {OS_CODENAME}
+              </span>
+            </div>
+            <ul className="flex flex-col">
+              {[...OS_HISTORY].reverse().map((release) => (
+                <li
+                  key={release.version}
+                  className="border-b border-line px-5 py-4 last:border-b-0"
+                >
+                  <p className="flex items-baseline justify-between gap-4">
+                    <span className="font-mono text-sm font-medium text-accent">
+                      v{release.version} · {release.name}
+                    </span>
+                    <span className="shrink-0 font-mono text-[11px] text-muted">
+                      {release.date}
+                    </span>
+                  </p>
+                  <p className="mt-1 text-sm leading-6 text-muted">
+                    {release.notes}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
           <Link
             href="/#projects"
             className="mt-10 inline-block rounded-lg bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-colors hover:bg-accent"

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { fmtOSTime } from "@/lib/osLive"
-import type { App, WinState } from "./types"
+import type { App, WinState } from "../types"
 
 const focusable =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/40 dark:focus-visible:ring-white/60"

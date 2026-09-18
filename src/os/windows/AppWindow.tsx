@@ -2,7 +2,7 @@
 
 import type { CSSProperties, PointerEvent as ReactPointerEvent } from "react"
 import { timeAgo, type RepoInfo } from "@/lib/osLive"
-import type { App, WinState } from "./types"
+import type { App, WinState } from "../types"
 import HFPanel from "./HFPanel"
 
 const focusable =

@@ -1,5 +1,5 @@
 import SiteHeader from "@/components/SiteHeader"
-import OSHome, { Wallpaper } from "@/components/OSHome"
+import OSHome, { Wallpaper } from "@/os/OSHome"
 import Philosophy from "@/components/Philosophy"
 import Showcase from "@/components/Showcase"
 import Projects from "@/components/Projects"

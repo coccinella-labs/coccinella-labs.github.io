@@ -1,6 +1,6 @@
 {
   "name": "coccinella-labs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "setup:hooks": "git config core.hooksPath .githooks"
   },
   "dependencies": {
     "next": "16.3.0",

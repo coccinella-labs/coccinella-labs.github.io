@@ -1,5 +1,5 @@
 import Section from "./Section"
-import { HarperMockup } from "./mockups"
+import { HarperMockup } from "@/os/mockups"
 
 const pitches = [
   {

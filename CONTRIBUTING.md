@@ -29,10 +29,15 @@ The site is data-driven. To add a project:
 
 ```bash
 npm install
+npm run setup:hooks
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+`setup:hooks` points git at the committed hooks in `.githooks/`. The
+pre-commit hook runs `lint` and `typecheck` (blocking, same as CI) and
+reports prettier drift on staged files as a warning.
 
 ## Checks
 
