@@ -7,6 +7,7 @@ export type Language =
   | "Go"
   | "Haskell"
   | "HTML"
+  | "Java"
   | "JavaScript"
   | "JSON"
   | "Jupyter Notebook"
@@ -55,6 +56,7 @@ export const languages: Language[] = [
   "Go",
   "Haskell",
   "HTML",
+  "Java",
   "JavaScript",
   "JSON",
   "Jupyter Notebook",
@@ -79,7 +81,7 @@ export const categories: {
   {
     name: "CLI",
     blurb: "Developer utilities for everyday workflows.",
-    count: 29,
+    count: 31,
   },
   {
     name: "GitHub",
@@ -94,12 +96,12 @@ export const categories: {
   {
     name: "Templates",
     blurb: "Project starters and boilerplates.",
-    count: 14,
+    count: 15,
   },
   {
     name: "Experiments",
     blurb: "Ideas that may eventually become tools.",
-    count: 41,
+    count: 44,
   },
 ]
 
@@ -164,7 +166,7 @@ export const projects: Project[] = [
     name: "startkit",
     slug: "startkit",
     description: "Minimal project template for new libraries.",
-    language: "TypeScript",
+    language: "JavaScript",
     category: "Template",
     github: "https://github.com/coccinella-labs/startkit",
     overview:
@@ -444,7 +446,7 @@ export const projects: Project[] = [
     name: "bot",
     slug: "bot",
     description: "Bot identity for automation.",
-    language: "Shell",
+    language: "Python",
     category: "GitHub Action",
     github: "https://github.com/coccinella-labs/bot",
     overview:
@@ -767,6 +769,19 @@ export const projects: Project[] = [
     related: [],
   },
   {
+    name: 'config',
+    slug: 'config',
+    description: 'GitHub CLI extension to manage warning messages from warnings repo.',
+    language: 'Shell',
+    category: 'CLI',
+    github: 'https://github.com/coccinella-labs/config',
+    overview: 'GitHub CLI extension to manage warning messages from the warnings repo. It stays small enough to read and replace.',
+    installation: 'git clone https://github.com/coccinella-labs/config',
+    license: 'MIT',
+    status: 'Stable',
+    related: [],
+  },
+  {
     name: 'core',
     slug: 'core',
     description: 'Metal-based GPU compute runtime focused on memory, synchronization, and data movement on Apple Silicon.',
@@ -858,6 +873,19 @@ export const projects: Project[] = [
     related: [],
   },
   {
+    name: 'dotfiles',
+    slug: 'dotfiles',
+    description: 'Dotfiles for Mac.',
+    language: 'Shell',
+    category: 'Template',
+    github: 'https://github.com/coccinella-labs/dotfiles',
+    overview: 'Dotfiles for Mac. The scaffolding is minimal, so the real work is yours.',
+    installation: 'git clone https://github.com/coccinella-labs/dotfiles',
+    license: 'MIT',
+    status: 'Stable',
+    related: [],
+  },
+  {
     name: 'fix',
     slug: 'fix',
     description: 'Commit message app.',
@@ -893,6 +921,19 @@ export const projects: Project[] = [
     overview: 'A curated visual experience powered by Pexels API. Expect rough edges while its shape is being tested.',
     installation: 'git clone https://github.com/coccinella-labs/general',
     license: 'MIT',
+    status: 'Experimental',
+    related: [],
+  },
+  {
+    name: 'gradledemo',
+    slug: 'gradledemo',
+    description: 'Java HTTP demo.',
+    language: 'Java',
+    category: 'Experiment',
+    github: 'https://github.com/coccinella-labs/gradledemo',
+    overview: 'Java HTTP demo. Expect rough edges while its shape is being tested.',
+    installation: 'git clone https://github.com/coccinella-labs/gradledemo',
+    license: 'Unlicense',
     status: 'Experimental',
     related: [],
   },
@@ -977,11 +1018,11 @@ export const projects: Project[] = [
   {
     name: 'harper',
     slug: 'harper',
-    description: 'Rust-based text processing and language tooling.',
+    description: 'Rust agent runtime with a TUI, an HTTP API, and a sandbox.',
     language: 'Rust',
     category: 'CLI',
     github: 'https://github.com/coccinella-labs/harper',
-    overview: 'Rust-based text processing and language tooling. It stays small enough to read and replace.',
+    overview: 'Rust agent runtime with a TUI, an HTTP API, and a sandbox. It stays small enough to read and replace.',
     installation: 'cargo install --git https://github.com/coccinella-labs/harper',
     license: 'MIT',
     status: 'Stable',
@@ -1053,6 +1094,45 @@ export const projects: Project[] = [
     related: [],
   },
   {
+    name: 'hbotest',
+    slug: 'hbotest',
+    description: 'Webhook test.',
+    language: 'Python',
+    category: 'Experiment',
+    github: 'https://github.com/coccinella-labs/hbotest',
+    overview: 'Webhook test. Expect rough edges while its shape is being tested.',
+    installation: 'pip install git+https://github.com/coccinella-labs/hbotest',
+    license: 'MIT',
+    status: 'Experimental',
+    related: [],
+  },
+  {
+    name: 'hello',
+    slug: 'hello',
+    description: 'React app.',
+    language: 'JavaScript',
+    category: 'Experiment',
+    github: 'https://github.com/coccinella-labs/hello',
+    overview: 'React app. Expect rough edges while its shape is being tested.',
+    installation: 'git clone https://github.com/coccinella-labs/hello',
+    license: 'MIT',
+    status: 'Experimental',
+    related: [],
+  },
+  {
+    name: 'hi',
+    slug: 'hi',
+    description: 'Instrument hub.',
+    language: 'Python',
+    category: 'CLI',
+    github: 'https://github.com/coccinella-labs/hi',
+    overview: 'Instrument hub. It stays small enough to read and replace.',
+    installation: 'pip install git+https://github.com/coccinella-labs/hi',
+    license: 'Apache-2.0',
+    status: 'Stable',
+    related: [],
+  },
+  {
     name: 'homebrew-kit',
     slug: 'homebrew-kit',
     description: 'Distribution artifact.',
@@ -1068,11 +1148,11 @@ export const projects: Project[] = [
   {
     name: 'homebrew-tap',
     slug: 'homebrew-tap',
-    description: 'Homebrew formulas for Harpertoken projects.',
+    description: 'Homebrew formulas for Coccinella Labs projects.',
     language: 'Ruby',
     category: 'Library',
     github: 'https://github.com/coccinella-labs/homebrew-tap',
-    overview: 'Homebrew formulas for Harpertoken projects. It works on its own, without tying you down.',
+    overview: 'Homebrew formulas for Coccinella Labs projects. It works on its own, without tying you down.',
     installation: 'git clone https://github.com/coccinella-labs/homebrew-tap',
     license: 'MIT',
     status: 'Stable',

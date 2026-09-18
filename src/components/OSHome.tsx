@@ -357,8 +357,17 @@ function Banner({
             </a>
           </div>
           {live ? (
-            <p className="mt-4 font-mono text-[11px] text-neutral-500 dark:text-white/40">{live}</p>
-          ) : null}
+            <p className="mt-4 animate-ghost font-mono text-[11px] text-neutral-500 dark:text-white/40">
+              {live}
+            </p>
+          ) : (
+            <p
+              aria-hidden="true"
+              className="mt-4 select-none font-mono text-[11px] opacity-0"
+            >
+              &nbsp;
+            </p>
+          )}
         </div>
         <div className="hidden lg:block">
           <div className="rounded-xl shadow-2xl shadow-black/40">
@@ -398,10 +407,17 @@ function Tile({
         {app.tag}
       </p>
       {live ? (
-        <p className="mt-1.5 truncate font-mono text-[10px] text-neutral-500 dark:text-white/40">
+        <p className="mt-1.5 animate-ghost truncate font-mono text-[10px] text-neutral-500 dark:text-white/40">
           {live}
         </p>
-      ) : null}
+      ) : (
+        <p
+          aria-hidden="true"
+          className="mt-1.5 select-none truncate font-mono text-[10px] opacity-0"
+        >
+          &nbsp;
+        </p>
+      )}
       <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-neutral-900/0 transition-colors group-hover:text-neutral-900/40 dark:text-white/0 dark:group-hover:text-white/40">
         open ↗
       </p>

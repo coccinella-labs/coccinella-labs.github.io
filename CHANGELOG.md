@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (release, stale, auto-merge, auto-label, title, cancel, lock, prune,
   rust-fix, bump, echo), reusable workflows (gon, nightly,
   rust-nightly, release-assets, activity, bot), and the new tools.
+- Six more org repos now listed: config, dotfiles, gradledemo, hbotest,
+  hello, and hi, with a Java language filter.
 
 ### Changed
 
@@ -22,6 +24,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   installation commands now point at real releases.
 - Category counts reflect the full org collection.
 - Language filters extended for Shell and YAML workflows.
+- Fixed stale catalog data: harper and homebrew-tap descriptions, bot and
+  startkit languages.
+- The live GitHub status line under "Open harper" (and on app tiles) now
+  reserves its space and fades in instead of popping in with a layout
+  shift.
 
 ## [1.0.0] - 2026-08-07
 

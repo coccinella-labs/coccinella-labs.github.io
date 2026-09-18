@@ -326,7 +326,7 @@ export function BrowserMockup() {
         <div className="col-span-2 rounded-md border border-line bg-surface px-3 py-2">
           <p className="text-xs font-semibold">coccinella-labs</p>
           <p className="text-[10px] text-muted">
-            Small tools, strong opinions. · 136 projects
+            Small tools, strong opinions. · 142 projects
           </p>
         </div>
         {names.map((name, i) => (
