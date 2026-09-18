@@ -33,8 +33,16 @@ export const metadata: Metadata = {
   },
   description: "Small developer tools.",
   icons: {
-    icon: [{ url: "/coccinella-labs-icon.png", sizes: "460x460", type: "image/png" }],
-    apple: [{ url: "/coccinella-labs-icon.png", sizes: "460x460" }],
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      {
+        url: "/coccinella-labs-icon.png",
+        sizes: "1024x1024",
+        type: "image/png",
+      },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   manifest: "/manifest.webmanifest",
   openGraph: {

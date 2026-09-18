@@ -14,7 +14,12 @@ export default function manifest(): MetadataRoute.Manifest {
     icons: [
       {
         src: "/coccinella-labs-icon.png",
-        sizes: "460x460",
+        sizes: "1024x1024",
+        type: "image/png",
+      },
+      {
+        src: "/icon-512.png",
+        sizes: "512x512",
         type: "image/png",
       },
     ],
