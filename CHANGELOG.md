@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Full favicon set wired up: multi-size `favicon.ico`, `favicon.svg`,
+  `apple-touch-icon.png`, and both manifest icons with correct sizes.
+
+### Changed
+
+- Refreshed README project layout, local setup, and deploy docs; added a
+  workflows README covering CI, deploy, and the pre-commit hook.
+
 ## [1.1.0] - 2026-09-18
 
 ### Added
@@ -17,6 +29,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   rust-nightly, release-assets, activity, bot), and the new tools.
 - Six more org repos now listed: config, dotfiles, gradledemo, hbotest,
   hello, and hi, with a Java language filter.
+- coccinella-labs OS v0.1.0 "Seven Spot": stated version with ladybird
+  release names, an append-only history ledger, and a version card on
+  the About page.
+- Local pre-commit hook (`.githooks/`, `npm run setup:hooks`) mirroring
+  CI lint and typecheck.
 
 ### Changed
 
