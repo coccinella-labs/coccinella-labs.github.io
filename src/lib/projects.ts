@@ -91,7 +91,7 @@ export const categories: {
   {
     name: "Libraries",
     blurb: "Reusable building blocks.",
-    count: 21,
+    count: 22,
   },
   {
     name: "Templates",
@@ -455,6 +455,19 @@ export const projects: Project[] = [
     license: "MIT",
     status: "Stable",
     related: ["prune", "rust-fix"],
+  },
+  {
+    name: 'agent-sdk',
+    slug: 'agent-sdk',
+    description: 'Minimal reusable agent runtime.',
+    language: 'Rust',
+    category: 'Library',
+    github: 'https://github.com/coccinella-labs/agent-sdk',
+    overview: 'A minimal reusable agent runtime extracted from Harper: normalized ToolCall parsing, a provider abstraction with offline and Ollama backends, a Tool trait with dispatch, and a tiny fixed-budget loop. It works on its own, without tying you down.',
+    installation: 'cargo add --git https://github.com/coccinella-labs/agent-sdk',
+    license: 'Apache-2.0',
+    status: 'Experimental',
+    related: ['harper'],
   },
   {
     name: 'agentware',
