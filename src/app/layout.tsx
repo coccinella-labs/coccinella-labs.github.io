@@ -14,11 +14,11 @@ const organizationIcon = `${siteUrl}/coccinella-labs-icon.png`
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "coccinella-labs",
+  name: "Coccinella Labs",
   url: siteUrl,
   logo: organizationIcon,
   sameAs: ["https://github.com/coccinella-labs"],
-  description: "Small developer tools.",
+  description: "Small developer tools and the systems behind them.",
 }
 
 export const viewport: Viewport = {
@@ -28,10 +28,10 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "coccinella-labs",
-    template: "%s · coccinella-labs",
+    default: "Coccinella Labs",
+    template: "%s · Coccinella Labs",
   },
-  description: "Small developer tools.",
+  description: "Small developer tools and the systems behind them.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -48,9 +48,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: siteUrl,
-    title: "coccinella-labs",
-    description: "Small developer tools.",
-    siteName: "coccinella-labs",
+    title: "Coccinella Labs",
+    description: "Small developer tools and the systems behind them.",
+    siteName: "Coccinella Labs",
     images: [
       {
         url: "/og.png",
@@ -62,8 +62,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "coccinella-labs",
-    description: "Small developer tools.",
+    title: "Coccinella Labs",
+    description: "Small developer tools and the systems behind them.",
     images: ["/og.png"],
   },
 }
@@ -82,13 +82,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{
             __html: `(function () {
   try {
-    var t = localStorage.getItem("coccinella-labs:theme") || "system";
+    var stored = localStorage.getItem("coccinella-labs:theme");
     var dark =
-      t === "dark" ||
-      (t === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      stored === "dark" ||
+      (stored !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
     document.documentElement.classList.add(dark ? "dark" : "light");
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", dark ? "#0d1117" : "#ffffff");
+    if (meta) meta.setAttribute("content", dark ? "#262626" : "#ffffff");
   } catch (e) {}
 })();`,
           }}

@@ -97,7 +97,7 @@ export default function AppWindow({
             onClick={() => onToggleMin(app.name)}
             className={`rounded-md px-2 py-1 text-sm leading-none text-muted transition-colors hover:bg-line hover:text-foreground ${focusable}`}
           >
-            –
+            -
           </button>
           <button
             type="button"

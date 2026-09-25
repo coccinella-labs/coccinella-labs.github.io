@@ -20,7 +20,7 @@ export default function Section({
   return (
     <section
       id={id}
-      className={`scroll-mt-16 py-20 lg:py-28 ${className}`}
+      className={`scroll-mt-12 py-20 md:scroll-mt-24 lg:py-28 ${className}`}
     >
       <div className="mx-auto w-full max-w-[1200px] px-6 lg:px-8">
         <div className="max-w-2xl">

@@ -17,7 +17,6 @@ export const OS_NAME = "coccinella-labs OS"
 // the next unused name.
 export const OS_RELEASE_NAMES = [
   "Seven Spot",
-  "Two Spot",
   "Eleven Spot",
   "Fourteen Spot",
   "Twenty-Two Spot",
@@ -35,23 +34,25 @@ export type OSRelease = {
   notes: string
 }
 
-// Append-only version history. Each upgrade appends one entry with the
-// next unused name from OS_RELEASE_NAMES, so the chain is the ledger
-// itself: read top to bottom, oldest to newest.
+// Version history. The first two iterations were consolidated into the
+// 0.1.0 entry, so the chain reads: origin, then each later upgrade.
+// Each upgrade appends one entry with the next unused name from
+// OS_RELEASE_NAMES, so the chain is the ledger itself: read top to
+// bottom, oldest to newest.
 export const OS_HISTORY: OSRelease[] = [
   {
     version: "0.1.0",
     name: "Seven Spot",
     date: "2026-09-18",
     notes:
-      "First stated release. Serves 11 apps with windowing, taskbar, search, boot screen, and live GitHub and Hugging Face data.",
+      "First stated release. Serves 11 apps with windowing, taskbar, and live GitHub and Hugging Face data. The surface is then quieted: the boot screen, status bar, and search are dropped, live metrics become static fact lines, and the desktop layer sits below the catalog as an exploration layer.",
   },
   {
-    version: "0.2.0",
-    name: "Two Spot",
+    version: "0.3.0",
+    name: "Eleven Spot",
     date: "2026-09-25",
     notes:
-      "Quieted surface. Drops the boot screen, status bar, and in-OS search; live metrics become static fact lines. The OS now sits below the catalog as an exploration layer.",
+      "System interface. Presents state, not commands: a SYSTEM readout of projects, repositories, systems, and source instead of marketing copy or a fake boot sequence. Boot-inspired typography becomes the site's identity layer.",
   },
 ]
 

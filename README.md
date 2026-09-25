@@ -4,7 +4,7 @@
 
 # coccinella-labs
 
-A quiet home for small developer tools.
+Small developer tools and the systems behind them, built in the open.
 
 [![Site](https://img.shields.io/website?up_message=online&down_message=offline&label=coccinella-labs.github.io&style=flat-square&url=https%3A%2F%2Fcoccinella-labs.github.io)](https://coccinella-labs.github.io)
 [![GitHub Pages](https://img.shields.io/github/deployments/coccinella-labs/coccinella-labs.github.io/github-pages?label=GitHub%20Pages&logo=github&style=flat-square)](https://coccinella-labs.github.io)
@@ -13,11 +13,10 @@ A quiet home for small developer tools.
 
 This is the source for [https://coccinella-labs.github.io](https://coccinella-labs.github.io).
 
-coccinella-labs is a company of [Palmshed](https://github.com/palmshed), the
-home of open-source AI tools, agents, and SDKs. Where Palmshed builds the
-ambitious things, coccinella-labs keeps the small ones neat. The same way of
-working runs through both: build carefully, ship honestly, and stay easy
-to leave behind.
+coccinella-labs is a developer tools and systems company, building in the
+open. [Palmshed](https://github.com/palmshed) is the name of its collection of
+open-source tools and systems. The way of working is the same across both:
+build carefully, ship honestly, and stay easy to leave behind.
 
 ## Stack
 

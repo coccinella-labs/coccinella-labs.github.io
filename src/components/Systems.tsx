@@ -1,132 +1,127 @@
 import Link from "next/link"
 import Section from "./Section"
 import { getProject } from "@/lib/projects"
+import { systems, type System } from "@/lib/systems"
 
-const systems = [
-  {
-    title: "Agent infrastructure",
-    blurb: "Harnesses, runtimes, and bots.",
-    tools: ["harper", "agent-sdk", "harperbot", "harpertoken", "agentware", "vesper"],
-  },
-  {
-    title: "GPU & ML compute",
-    blurb: "Metal runtimes, kernels, and inference.",
-    tools: ["core", "kernels", "ml", "mlapi", "bitinfer"],
-  },
-  {
-    title: "Runtime & developer tooling",
-    blurb: "CLI foundations and code analysis.",
-    tools: ["cli", "hub", "go-kit", "omnitype", "vertex", "cli-tools"],
-  },
-  {
-    title: "Build & release automation",
-    blurb: "Versioning, tagging, and delivery.",
-    tools: ["release", "gh-tag", "release-assets", "fmtcheck", "rust-nightly", "bump"],
-  },
-]
-
-function ToolLink({ slug }: { slug: string }) {
+function SystemRepo({ slug }: { slug: string }) {
   const project = getProject(slug)
   if (!project) return null
   return (
-    <li>
+    <li className="flex min-w-0 items-baseline gap-3 py-1.5">
       <Link
         href={`/projects/${project.slug}/`}
-        className="rounded px-1.5 py-1 font-mono text-sm text-foreground/80 transition-colors hover:bg-line hover:text-foreground"
+        className="truncate font-mono text-sm text-foreground underline-offset-4 transition-colors hover:text-accent hover:underline"
       >
         {project.name}
       </Link>
-      <span className="ml-1 font-mono text-[11px] text-muted">
+      <span className="flex shrink-0 items-baseline gap-2 font-mono text-[11px] text-muted">
         {project.language}
+        <span className="text-muted/60">·</span>
+        {project.status}
       </span>
+      <a
+        href={project.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${project.name} on GitHub`}
+        className="ml-auto shrink-0 font-mono text-[11px] text-muted opacity-0 transition-opacity hover:text-foreground focus-visible:opacity-100 group-hover:opacity-100"
+      >
+        ↗
+      </a>
     </li>
   )
 }
 
-const harperFacts = [
-  "plans real work and executes it as sandboxed jobs",
-  "pauses for approval before irreversible steps",
-  "ships audited, signed results — self-hosted",
-]
+function SystemRow({ system }: { system: System }) {
+  return (
+    <div
+      id={`system-${system.id}`}
+      className="scroll-mt-12 border-b border-border py-10 md:scroll-mt-24 lg:grid lg:grid-cols-[1.1fr_1.6fr] lg:gap-12"
+    >
+      <div>
+        <p className="font-mono text-xs text-muted">
+          §{system.index} · {system.id}
+        </p>
+        <h3 className="mt-2 text-xl font-semibold tracking-tight">
+          {system.title}
+        </h3>
+        <p className="mt-3 max-w-md text-sm leading-6 text-muted">
+          {system.remit}
+        </p>
+      </div>
+      <div className="mt-6 lg:mt-0">
+        <dl className="grid gap-x-12 gap-y-5 text-sm sm:grid-cols-2">
+          <div>
+            <dt className="font-mono text-[11px] uppercase tracking-widest text-muted">
+              Stack
+            </dt>
+            <dd className="mt-2 font-mono text-sm text-foreground/85">
+              {system.stack.join(" · ")}
+            </dd>
+          </div>
+          {system.connectsTo.length > 0 ? (
+            <div>
+              <dt className="font-mono text-[11px] uppercase tracking-widest text-muted">
+                Connects to
+              </dt>
+              <dd className="mt-2 flex flex-wrap gap-x-2 gap-y-1 font-mono text-sm text-foreground/85">
+                {system.connectsTo.map((id) => (
+                  <Link
+                    key={id}
+                    href={`#system-${id}`}
+                    className="text-foreground/85 underline-offset-4 transition-colors hover:text-accent hover:underline"
+                  >
+                    {id}
+                  </Link>
+                ))}
+              </dd>
+            </div>
+          ) : null}
+        </dl>
+        <details className="group">
+          <summary className="mt-6 flex cursor-pointer list-none items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-foreground [&::-webkit-details-marker]:hidden">
+            Repositories · {system.members.length}
+            <span aria-hidden="true">+</span>
+          </summary>
+          <ul className="group mt-1.5 flex flex-col">
+            {system.members.map((slug) => (
+              <SystemRepo key={slug} slug={slug} />
+            ))}
+          </ul>
+        </details>
+      </div>
+    </div>
+  )
+}
 
 export default function Systems() {
-  const harper = getProject("harper")
-
   return (
     <Section
       id="systems"
       eyebrow="Systems"
       title="The depth underneath."
-      description="The catalog holds small tools. Beneath them is the systems work those tools depend on — agent infrastructure, GPU compute, and the build machinery that ships everything."
+      description="Agents that do work, compute that powers them, runtimes they run in, and the machinery that ships them."
     >
-      <div className="rounded-xl border border-line p-6 sm:p-8">
-        <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-start">
-          <div>
-            <h3 className="font-mono text-lg font-medium text-accent">harper</h3>
-            <p className="mt-2 text-sm leading-6 text-muted">
-              An agent harness, not a pretty chatbot. It plans real work,
-              executes it as sandboxed jobs, pauses for approval, and ships
-              audited results, end to end.
-            </p>
-            <ul className="mt-5 flex flex-col gap-2">
-              {harperFacts.map((fact) => (
-                <li key={fact} className="flex items-baseline gap-2 text-sm text-foreground/80">
-                  <span className="text-accent">→</span>
-                  {fact}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="flex flex-col gap-6">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-muted">
-                Related systems
-              </p>
-              <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1 font-mono text-sm text-foreground/80">
-                <Link href="/projects/agent-sdk/" className="underline-offset-4 hover:underline">
-                  agent-sdk
-                </Link>
-                <Link href="/projects/harperbot/" className="underline-offset-4 hover:underline">
-                  harperbot
-                </Link>
-                <Link href="/projects/harpertoken/" className="underline-offset-4 hover:underline">
-                  harpertoken
-                </Link>
-              </p>
-            </div>
-            <div className="mt-auto flex flex-wrap items-center gap-3">
-              <a
-                href="https://github.com/coccinella-labs/harper"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg border border-line px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-foreground"
-              >
-                Repository
-              </a>
-              {harper ? (
-                <Link
-                  href={`/projects/harper/`}
-                  className="rounded-lg border border-line px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-foreground"
-                >
-                  Project page
-                </Link>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <nav
+        aria-label="Systems index"
+        className="grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-4"
+      >
         {systems.map((system) => (
-          <div key={system.title} className="rounded-xl border border-line p-5">
-            <h4 className="text-sm font-semibold">{system.title}</h4>
-            <p className="mt-1 text-xs leading-5 text-muted">{system.blurb}</p>
-            <ul className="mt-4 flex flex-col items-start gap-1.5">
-              {system.tools.map((slug) => (
-                <ToolLink key={slug} slug={slug} />
-              ))}
-            </ul>
-          </div>
+          <Link
+            key={system.id}
+            href={`#system-${system.id}`}
+            className="flex items-baseline justify-between gap-3 bg-background px-5 py-4 text-sm transition-colors hover:bg-surface"
+          >
+            <span className="font-medium">{system.title}</span>
+            <span className="font-mono text-[11px] text-muted">
+              {system.members.length} repos
+            </span>
+          </Link>
+        ))}
+      </nav>
+      <div className="mt-12">
+        {systems.map((system) => (
+          <SystemRow key={system.id} system={system} />
         ))}
       </div>
     </Section>

@@ -14,9 +14,9 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
-          className="mt-8 inline-block rounded-lg bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-colors hover:bg-accent"
+          className="mt-8 inline-block rounded-md bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-colors hover:opacity-90"
         >
-          Back to coccinella-labs
+          Back to Coccinella Labs
         </Link>
       </div>
     </main>

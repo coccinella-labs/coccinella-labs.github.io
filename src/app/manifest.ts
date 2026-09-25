@@ -4,13 +4,13 @@ export const dynamic = "force-static"
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "coccinella-labs",
-    short_name: "coccinella-labs",
-    description: "Small developer tools.",
+    name: "Coccinella Labs",
+    short_name: "Coccinella Labs",
+    description: "Small developer tools and the systems behind them.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",
-    theme_color: "#1f883d",
+    theme_color: "#ffffff",
     icons: [
       {
         src: "/coccinella-labs-icon.png",

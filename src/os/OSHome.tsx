@@ -214,7 +214,7 @@ export default function OSHome() {
             </h2>
             <p className="mt-4 text-base leading-7 text-muted">
               Every product opened as a working window. Pick an app and it
-              opens over the page — no boot sequence, no gauges.
+              opens over the page, no boot sequence, no gauges.
             </p>
             <p className="mt-3 font-mono text-[11px] text-muted">
               {OS_NAME} · v{OS_VERSION} · {OS_CODENAME}

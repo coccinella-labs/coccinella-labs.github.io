@@ -11,11 +11,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Full favicon set wired up: multi-size `favicon.ico`, `favicon.svg`,
   `apple-touch-icon.png`, and both manifest icons with correct sizes.
+- Build-time repository count: `src/lib/org.ts` reads the exact figure from
+  the GitHub API during the build and falls back to 156 when the API is
+  unavailable. The hero, status line, and About page all read from it.
+- `--surface-hover` token, applied to the project index disclosure.
 
 ### Changed
 
 - Refreshed README project layout, local setup, and deploy docs; added a
   workflows README covering CI, deploy, and the pre-commit hook.
+- Palette replaced with a neutral grayscale system. Dark mode is
+  `#262626`/`#dedede`/`#424242`/`#9d9d9d`/`#2c2c2c`; the green accent and
+  brand pink are gone from the interface. Page backgrounds now use
+  `bg-background` instead of hardcoded hex values, so light mode is true
+  white rather than blue-grey.
+- Theme switch reduced to two states, light and dark, with sun and moon
+  icons. An unset preference follows the OS and the first click makes it
+  explicit. Hydration is handled with `useSyncExternalStore`, which removed a
+  mismatch that made React regenerate the tree and warn about a script tag.
+- Header is two rows: brand and theme switch above, nav links left-aligned
+  beneath at the same gutter, center left empty. Anchor offsets updated for
+  the taller bar.
+- Hero reduced to the three counts, with the duplicate navigation removed
+  after the links moved into the header.
+- Radius reduced to a two-value scale: `rounded-md` for controls,
+  `rounded-lg` for cards and panels. Full-bleed sections stay square.
+- Status line reduced to one plain line of counts and the org link; the
+  "system online" line, its green dot, and the surface band were removed.
+- Catalog content rebuilt from repository documentation: 142 of 145 project
+  pages now carry a factual Overview, and 43 thin descriptions were rewritten.
+  Three placeholder repositories are intentionally left as they are.
+- Redesigned `DESIGN.md` to describe the current site. The previous snapshot
+  documented the retired OS layer.
+
+### Fixed
+
+- 21 installation commands that did not work. Each was tested rather than
+  assumed: the `pip install git+` form fails for 17 repositories that are not
+  installable packages, `npm install github:` pointed at names that do not
+  exist, and `go get` was wrong for a CLI. The five `pip install` commands
+  that do resolve were left alone.
+- Published metadata corrected against the repositories: `diff` is MIT plus
+  custom terms rather than plain MIT, `diff-mac` and `weight` have no license
+  file, `path` is CC BY 4.0, and `harpertoken` is a Perl linting tool rather
+  than a fine-tuning project. `l2` and `vesper` are documented as two
+  entrypoints of the same `friday_gemini_ai` gem.
+- 28 kebab-case project names display as readable text; slugs and URLs are
+  unchanged.
+- Removed 116 project pages whose Overview repeated the page description
+  verbatim.
+- Hero no longer renders 64px of empty space above the counts.
+- Three redundant horizontal rules removed, and list row spacing unified.
 
 ## [1.1.0] - 2026-09-18
 

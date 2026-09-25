@@ -1,7 +1,7 @@
 /* TEAM */
 
 coccinella-labs
-Quiet, independent developers who believe in small tools.
+Independent developers building small tools and the systems behind them.
 
 Site: https://coccinella-labs.github.io
 GitHub: https://github.com/coccinella-labs

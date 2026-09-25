@@ -1,9 +1,35 @@
 "use client"
 
 import Link from "next/link"
+import type { ReactNode } from "react"
 import Section from "./Section"
 import { getProject, releases, recentlyUpdated } from "@/lib/projects"
 import { timeAgo, useOrgEvents, type OrgEvent } from "@/lib/osLive"
+
+function Reveal({
+  label,
+  count,
+  right,
+  children,
+}: {
+  label: string
+  count?: number
+  right?: ReactNode
+  children: ReactNode
+}) {
+  return (
+    <details className="group">
+      <summary className="flex cursor-pointer list-none items-baseline justify-between gap-4 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-foreground [&::-webkit-details-marker]:hidden">
+        <span>
+          {label}
+          {count !== undefined ? ` · ${count}` : ""}
+        </span>
+        {right ?? <span aria-hidden="true">+</span>}
+      </summary>
+      <div className="mt-1">{children}</div>
+    </details>
+  )
+}
 
 function shortRepo(repo: string): string {
   return repo.replace("coccinella-labs/", "")
@@ -49,14 +75,14 @@ function eventLabel(event: OrgEvent): string | null {
 
 function Skeleton() {
   return (
-    <ul className="mt-4 flex flex-col">
+    <ul className="mt-2 flex flex-col">
       {[0, 1, 2, 3].map((i) => (
         <li
           key={i}
-          className="flex items-center justify-between gap-4 border-b border-line py-3.5 last:border-b-0"
+          className="flex items-center justify-between gap-4 border-b border-border py-3 last:border-b-0"
         >
-          <span className="h-4 w-2/5 animate-pulse rounded bg-line" />
-          <span className="h-4 w-1/4 animate-pulse rounded bg-line" />
+          <span className="h-4 w-2/5 animate-pulse rounded bg-border" />
+          <span className="h-4 w-1/4 animate-pulse rounded bg-border" />
         </li>
       ))}
     </ul>
@@ -65,64 +91,83 @@ function Skeleton() {
 
 function StaticFallback() {
   return (
-    <div className="grid gap-5 md:grid-cols-2">
-      <div className="rounded-xl border border-line p-6">
-        <h3 className="text-base font-semibold">Latest Releases</h3>
-        <ul className="mt-4 flex flex-col">
-          {releases.length > 0 ? (
-            releases.map((release) => {
-              const project = getProject(release.slug)
-              if (!project) return null
-              return (
-                <li
-                  key={`${release.version}-${release.slug}`}
-                  className="flex flex-col items-start gap-1 border-b border-line py-3.5 last:border-b-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
-                >
-                  <span className="font-mono text-sm text-accent">
-                    {release.version}
-                  </span>
-                  <Link
-                    href={`/projects/${project.slug}/`}
-                    className="text-sm text-muted underline-offset-4 transition-colors hover:text-foreground hover:underline"
+    <div className="grid gap-10 md:grid-cols-2">
+      <div>
+        <Reveal label="Latest Releases" count={releases.length}>
+          <ul className="mt-2 flex flex-col">
+            {releases.length > 0 ? (
+              releases.map((release) => {
+                const project = getProject(release.slug)
+                if (!project) return null
+                return (
+                  <li
+                    key={`${release.version}-${release.slug}`}
+                    className="flex flex-col items-start gap-1 border-b border-border py-3 last:border-b-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
                   >
-                    {project.name}
-                  </Link>
-                </li>
-              )
-            })
-          ) : (
-            <li className="py-3.5 text-sm text-muted">
-              No releases to show yet.
-            </li>
-          )}
-        </ul>
+                    <Link
+                      href={`/projects/${project.slug}/`}
+                      className="font-mono text-sm text-accent underline-offset-4 hover:underline"
+                    >
+                      {project.name}
+                    </Link>
+                    <span className="shrink-0 font-mono text-[11px] text-muted">
+                      {release.version}
+                    </span>
+                  </li>
+                )
+              })
+            ) : (
+              <li className="py-3 text-sm text-muted">No releases to show yet.</li>
+            )}
+          </ul>
+        </Reveal>
       </div>
-      <div className="rounded-xl border border-line p-6">
-        <h3 className="text-base font-semibold">Recently Updated</h3>
-        <ul className="mt-4 flex flex-col">
-          {recentlyUpdated.length > 0 ? (
-            recentlyUpdated.map((activity) => {
-              const project = getProject(activity.slug)
-              if (!project) return null
-              return (
-                <li
-                  key={activity.slug}
-                  className="flex flex-col items-start gap-1 border-b border-line py-3.5 last:border-b-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
-                >
-                  <span className="text-sm text-muted">{activity.label}</span>
-                  <Link
-                    href={`/projects/${project.slug}/`}
-                    className="text-sm text-muted underline-offset-4 transition-colors hover:text-foreground hover:underline"
+      <div>
+        <Reveal label="Recently Updated" count={recentlyUpdated.length}>
+          <ul className="mt-2 flex flex-col">
+            {recentlyUpdated.length > 0 ? (
+              recentlyUpdated.map((activity) => {
+                const project = getProject(activity.slug)
+                if (!project) return null
+                return (
+                  <li
+                    key={activity.slug}
+                    className="flex flex-col items-start gap-1 border-b border-border py-3 last:border-b-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
                   >
-                    {project.name}
-                  </Link>
-                </li>
-              )
-            })
-          ) : (
-            <li className="py-3.5 text-sm text-muted">Nothing to show yet.</li>
-          )}
-        </ul>
+                    <span className="truncate text-sm text-muted">
+                      {activity.label}
+                    </span>
+                    <Link
+                      href={`/projects/${project.slug}/`}
+                      className="shrink-0 font-mono text-sm text-accent underline-offset-4 hover:underline"
+                    >
+                      {project.name}
+                    </Link>
+                  </li>
+                )
+              })
+            ) : (
+              <li className="py-3 text-sm text-muted">Nothing to show yet.</li>
+            )}
+          </ul>
+        </Reveal>
+      </div>
+    </div>
+  )
+}
+
+function LiveFallback() {
+  return (
+    <div className="grid gap-10 md:grid-cols-2">
+      <div>
+        <Reveal label="Latest Releases">
+          <Skeleton />
+        </Reveal>
+      </div>
+      <div>
+        <Reveal label="Recently Active">
+          <Skeleton />
+        </Reveal>
       </div>
     </div>
   )
@@ -135,20 +180,11 @@ export default function Activity() {
     return (
       <Section
         id="activity"
-        eyebrow="Latest Activity"
-        title="What's happening."
-        description="New releases and recent changes across the collection."
+        eyebrow="Activity"
+        title="What’s shipping."
+        description="New releases and recent changes across the projects."
       >
-        <div className="grid gap-5 md:grid-cols-2">
-          <div className="rounded-xl border border-line p-6">
-            <h3 className="text-base font-semibold">Latest Releases</h3>
-            <Skeleton />
-          </div>
-          <div className="rounded-xl border border-line p-6">
-            <h3 className="text-base font-semibold">Recently Active</h3>
-            <Skeleton />
-          </div>
-        </div>
+        <LiveFallback />
       </Section>
     )
   }
@@ -157,9 +193,9 @@ export default function Activity() {
     return (
       <Section
         id="activity"
-        eyebrow="Latest Activity"
-        title="What's happening."
-        description="New releases and recent changes across the collection."
+        eyebrow="Activity"
+        title="What’s shipping."
+        description="New releases and recent changes across the projects."
       >
         <StaticFallback />
       </Section>
@@ -173,7 +209,7 @@ export default function Activity() {
         event.action === "published" &&
         event.tag
     )
-    .slice(0, 6)
+    .slice(0, 3)
 
   const liveActivity = events
     .map((event) => ({ event, label: eventLabel(event) }))
@@ -186,85 +222,83 @@ export default function Activity() {
   return (
     <Section
       id="activity"
-      eyebrow="Latest Activity"
-      title="What's happening."
-      description="New releases and recent changes across the collection, live from GitHub."
+      eyebrow="Activity"
+      title="What’s shipping."
+      description="New releases and recent changes across the projects, read live from GitHub."
     >
-      <div className="grid gap-5 md:grid-cols-2">
-        <div className="rounded-xl border border-line p-6">
-          <h3 className="flex items-center gap-2 text-base font-semibold">
-            Latest Releases
-            <span className="size-1.5 rounded-full bg-emerald-500" />
-          </h3>
-          <ul className="mt-4 flex flex-col">
-            {liveReleases.length > 0 ? (
-              liveReleases.map((event) => (
-                <li
-                  key={event.id}
-                  className="flex flex-col items-start gap-1 border-b border-line py-3.5 last:border-b-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
-                >
-                  <span
-                    title={event.tag ?? ""}
-                    className="truncate font-mono text-sm text-accent"
+      <div className="grid gap-10 md:grid-cols-2">
+        <div>
+          <Reveal
+            label="Latest Releases"
+            count={liveReleases.length}
+            right={
+              <a
+                href="https://github.com/coccinella-labs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline-offset-4 transition-colors hover:text-foreground hover:underline"
+              >
+                GitHub ↗
+              </a>
+            }
+          >
+            <ul className="flex flex-col">
+              {liveReleases.length > 0 ? (
+                liveReleases.map((event) => (
+                  <li
+                    key={event.id}
+                    className="flex flex-col items-start gap-1 border-b border-border py-3 last:border-b-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
                   >
-                    {shortTag(event.tag ?? "")}
-                  </span>
-                  <span className="flex shrink-0 items-center gap-2">
                     <a
                       href={`https://github.com/${event.repo}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-muted underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                      title={event.tag ?? ""}
+                      className="max-w-full truncate font-mono text-sm text-accent underline-offset-4 hover:underline"
                     >
-                      {shortRepo(event.repo)}
+                      {shortTag(event.tag ?? "")} · {shortRepo(event.repo)}
                     </a>
-                    <span className="font-mono text-[11px] text-muted/70">
+                    <span className="shrink-0 font-mono text-[11px] text-muted/70">
                       {timeAgo(event.createdAt)}
                     </span>
-                  </span>
+                  </li>
+                ))
+              ) : (
+                <li className="py-3 text-sm text-muted">
+                  No releases in the last stretch.
                 </li>
-              ))
-            ) : (
-              <li className="py-3.5 text-sm text-muted">
-                No releases in the last stretch.
-              </li>
-            )}
-          </ul>
+              )}
+            </ul>
+          </Reveal>
         </div>
-        <div className="rounded-xl border border-line p-6">
-          <h3 className="flex items-center gap-2 text-base font-semibold">
-            Recently Active
-            <span className="size-1.5 rounded-full bg-emerald-500" />
-          </h3>
-          <ul className="mt-4 flex flex-col">
-            {liveActivity.length > 0 ? (
-              liveActivity.map(({ event, label }) => (
-                <li
-                  key={event.id}
-                  className="flex flex-col items-start gap-1 border-b border-line py-3.5 last:border-b-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
-                >
-                  <span className="truncate text-sm text-muted">{label}</span>
-                  <span className="flex shrink-0 items-center gap-2">
+        <div>
+          <Reveal label="Recently Active" count={liveActivity.length}>
+            <ul className="flex flex-col">
+              {liveActivity.length > 0 ? (
+                liveActivity.map(({ event, label }) => (
+                  <li
+                    key={event.id}
+                    className="flex flex-col items-start gap-1 border-b border-border py-3 last:border-b-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+                  >
                     <a
                       href={`https://github.com/${event.repo}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-muted underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                      className="max-w-full truncate text-sm text-muted underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                      title={event.repo}
                     >
-                      {shortRepo(event.repo)}
+                      {label}
                     </a>
-                    <span className="font-mono text-[11px] text-muted/70">
-                      {timeAgo(event.createdAt)}
+                    <span className="shrink-0 font-mono text-[11px] text-muted/70">
+                      {shortRepo(event.repo)} · {timeAgo(event.createdAt)}
                     </span>
-                  </span>
-                </li>
-              ))
-            ) : (
-              <li className="py-3.5 text-sm text-muted">
-                Quiet for the moment.
-              </li>
-            )}
-          </ul>
+                  </li>
+                ))
+              ) : (
+                <li className="py-3 text-sm text-muted">No recent activity.</li>
+              )}
+            </ul>
+          </Reveal>
         </div>
       </div>
     </Section>

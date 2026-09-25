@@ -13,7 +13,7 @@ export default function CopyCommand({ command }: { command: string }) {
 
   return (
     <div className="relative mt-4">
-      <pre className="overflow-x-auto rounded-xl border border-line bg-muted/10 p-5 pr-16 font-mono text-sm leading-6 text-foreground">
+      <pre className="overflow-x-auto rounded-lg border border-border bg-muted/10 p-5 pr-16 font-mono text-sm leading-6 text-foreground">
         <code>{command}</code>
       </pre>
       <button
