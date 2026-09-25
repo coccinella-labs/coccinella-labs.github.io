@@ -1,3 +1,4 @@
+import Counter from "@/components/Counter"
 import { getOrgRepoCount } from "@/lib/org"
 import { projects } from "@/lib/projects"
 import { systems } from "@/lib/systems"
@@ -15,8 +16,8 @@ export default async function Hero() {
         <dl className="flex flex-wrap gap-x-16 gap-y-10">
           {facts.map(({ label, value }) => (
             <div key={label}>
-              <dd className="font-mono text-5xl font-medium tracking-tight text-foreground">
-                {value}
+              <dd className="animate-count-blur font-mono text-5xl font-medium tracking-tight text-foreground">
+                <Counter value={value} />
               </dd>
               <dt className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted">
                 {label}
