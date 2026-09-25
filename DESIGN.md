@@ -1,4 +1,4 @@
-# Site design — record of what is now
+# Site design: record of what is now
 
 Snapshot of the current design, kept so it can be re-evaluated later. This
 file describes what exists today, not what it should become.
@@ -30,25 +30,25 @@ and nothing else.
 
 Sections in render order (`src/app/page.tsx`):
 
-1. **Sticky header** — two rows at `h-12` plus a nav row: logo and wordmark
+1. **Sticky header**: two rows at `h-12` plus a nav row: logo and wordmark
    on the first row with the theme switch at the right, then nav links
    (Systems / Projects / Activity / About) left-aligned beneath the wordmark
    at the same 32px gutter. Center stays empty. `backdrop-blur`,
    `border-b border-border`.
-2. **Hero** (`src/components/Hero.tsx`) — three figures only: project count,
+2. **Hero** (`src/components/Hero.tsx`): three figures only: project count,
    repository count, system count. `h1` is `sr-only`. No navigation, no
    search, no call to action.
-3. **Systems** — section intro, a 4-column index grid linking to each system
+3. **Systems**: section intro, a 4-column index grid linking to each system
    row, then one row per system with stack, connects-to, and a collapsed
    repository list.
-4. **Projects** — a single collapsed disclosure ("Show all 145 projects")
+4. **Projects**: a single collapsed disclosure ("Show all 145 projects")
    over a search-and-filter index. Filter state syncs to URL search params.
-5. **Activity** — two collapsed disclosures ("Latest Releases",
+5. **Activity**: two collapsed disclosures ("Latest Releases",
    "Recently Active") fed live by GitHub org events, with a static fallback.
-6. **SysStatus** (`src/components/SysStatus.tsx`) — one plain line: project,
+6. **SysStatus** (`src/components/SysStatus.tsx`): one plain line: project,
    repository, and system counts plus the GitHub org link. No band, no border,
    no live indicator.
-7. **Footer** — `alaska-footer.jpg` at 20% opacity in grayscale, copyright,
+7. **Footer**: `alaska-footer.jpg` at 20% opacity in grayscale, copyright,
    and the Palmshed link.
 
 Eight `<details>` elements on the home page, all closed by default, all
@@ -56,12 +56,12 @@ server-rendered.
 
 ## Sub-pages
 
-- `/projects/[slug]/` — header band (back link, mono title, language ·
+- `/projects/[slug]/`: header band (back link, mono title, language ·
   category · status · license, repository button), then Overview, optional
   Architecture and Capabilities, Installation with a copy button, a Technical
   details sidebar, and related projects. The Overview section renders only
   when it adds information beyond the page description.
-- `/about/` — prose, principles, and a release history card showing the two
+- `/about/`: prose, principles, and a release history card showing the two
   most recent entries.
 - Plus manifest, sitemap, 404.
 
