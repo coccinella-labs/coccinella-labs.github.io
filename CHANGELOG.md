@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- The three figures in the hero now count from zero to their real value over
+  900ms behind a blur that resolves from 12px, so the row settles rather than
+  appearing. The final value is what gets server-rendered, the animating
+  digits are `aria-hidden` with an `sr-only` copy of the true value, and the
+  whole effect is skipped under `prefers-reduced-motion`.
+
+### Changed
+
+- `tokensdk` tracked through its rebrand. The repository moved to a `next`
+  default branch and became `@coccinella-labs/tokensdk` on npm, serving the
+  Coccinella REST API. The catalog description, overview, and install command
+  all named the old Harper API and the `harpertoken` package.
+
 ## [2.0.0] - 2026-09-25
 
 A new major release. The simulated operating system that formed the front
