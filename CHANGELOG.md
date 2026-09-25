@@ -5,7 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.0] - 2026-09-25
+
+A new major release. The simulated operating system that formed the front
+page through v1.x is gone, along with the showcase pitch and the duplicate
+discovery surfaces. The site is now the catalog, presented plainly.
+
+### Removed
+
+- OS home layer: boot sequence, status bar, wallpaper, app windows, taskbar,
+  and the mockups that fed them. The code remains under `src/os/` but is no
+  longer rendered.
+- The harper showcase and its B2B sales copy.
+- `Categories` and `Discovery` components, folded into the project index.
+- The green accent and brand pink from the interface.
+- The "system online" status line and its live indicator.
 
 ### Added
 

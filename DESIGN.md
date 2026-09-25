@@ -11,7 +11,7 @@ the rendered site; the layer survives only as unreferenced code under
 `src/os/`. What follows describes the design as it now stands.
 
 - Snapshot date: 2026-09-25
-- Version: 1.1.0 (unreleased work on `main`)
+- Version: 2.0.0
 - Next.js 16.3.5 + Tailwind CSS 4 + TypeScript, static export
 
 ## What the site claims to be
