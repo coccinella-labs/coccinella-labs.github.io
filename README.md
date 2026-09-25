@@ -102,9 +102,7 @@ src/
   app/about/      # About page
   app/projects/   # Static project pages (/projects/[slug])
   components/     # UI sections (one per site section)
-  os/             # coccinella-labs OS: shell, app registry, mockups, windows
-  os/windows/     # App windows, taskbar, Hugging Face panel
-  lib/            # Data: projects, categories, activity, copy; live OS data
+  lib/            # Data: projects, systems, releases, org counts
 public/           # Static assets served as-is
 .githooks/        # Local pre-commit hook (see CONTRIBUTING.md)
 .github/

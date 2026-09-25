@@ -5,7 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.1] - 2026-09-25
+
+Follow-up to the redesign. The retired OS layer is deleted outright, and the
+catalog corrections and the hero count-up that landed after v2.0.0 are folded
+into one patch release rather than rewriting the v2.0.0 tag.
+
+### Removed
+
+- `src/os/` in full: the OS home, app registry, mockups, app windows, taskbar,
+  and the Hugging Face panel. It rendered nowhere after v2.0.0 and was carried
+  only as dead weight.
+- Five keyframes in `globals.css` (`blink`, `dot`, `eq`, `progress`, `ghost`)
+  that existed only to animate the OS layer. No rendered element used them.
+- The `coccinella-labs OS` name, which the v1.x design carried into the page.
 
 ### Added
 
@@ -21,6 +34,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   default branch and became `@coccinella-labs/tokensdk` on npm, serving the
   Coccinella REST API. The catalog description, overview, and install command
   all named the old Harper API and the `harpertoken` package.
+- The release history moved from `src/os/types.ts` to `src/lib/releases.ts`,
+  renamed `OS_HISTORY` to `releaseHistory`, and lost the OS framing in its
+  comments. The About page now reads from the new module.
+- The current release is numbered v0.2.0 rather than v0.3.0. Consolidating the
+  first two iterations into the 0.1.0 entry had left the history jumping a
+  version, so the chain now reads v0.1.0 then v0.2.0 with no gap.
 
 ## [2.0.0] - 2026-09-25
 

@@ -7,11 +7,12 @@ The previous snapshot (2026-09-25, version 1.1.0) recorded a front page built
 as a simulated operating system and flagged that its loudness contradicted the
 site's quiet positioning. That gap has since been closed. The OS metaphor,
 boot sequence, status bar, showcase pitch, and mockups are no longer part of
-the rendered site; the layer survives only as unreferenced code under
-`src/os/`. What follows describes the design as it now stands.
+the rendered site, and the layer that carried them has been deleted. The
+release ledger they recorded survives at `src/lib/releases.ts`, read by the
+About page. What follows describes the design as it now stands.
 
 - Snapshot date: 2026-09-25
-- Version: 2.0.0
+- Version: 2.0.1
 - Next.js 16.3.5 + Tailwind CSS 4 + TypeScript, static export
 
 ## What the site claims to be
@@ -84,11 +85,11 @@ server-rendered.
 
 ## Motion
 
-Global keyframes for the terminal cursor, typing dots, equalizer bars,
-indeterminate progress, and the ghosted-text pop-in survive in
-`globals.css`, used only by the orphaned OS layer. The rendered site relies on
-200ms background/border/color transitions under
-`prefers-reduced-motion: no-preference`, and the skeleton pulse in Activity.
+Two animations are in use. The hero counts its three figures up from zero
+behind a blur that resolves from 12px, over 900ms. Activity shows a skeleton
+pulse while its fetch is in flight. Global hover transitions run at 200ms
+under `prefers-reduced-motion: no-preference`. Nothing else animates, and
+every effect is skipped entirely under `prefers-reduced-motion: reduce`.
 
 ## Interactivity & live data
 
@@ -111,8 +112,6 @@ indeterminate progress, and the ghosted-text pop-in survive in
 
 ## Unresolved
 
-- `src/os/` holds the retired OS layer. It renders nowhere but is still in the
-  tree and still carried in diffs. Removing it is a separate decision.
 - 43 repositories in the catalog have no license file that GitHub can detect.
   The catalog says "No license file" where it was corrected; the rest are
   recorded as findings, pending a human decision.

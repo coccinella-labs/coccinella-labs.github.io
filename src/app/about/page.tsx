@@ -4,7 +4,7 @@ import SiteHeader from "@/components/SiteHeader"
 import Footer from "@/components/Footer"
 import { principles } from "@/lib/projects"
 import { getOrgRepoCount } from "@/lib/org"
-import { OS_HISTORY } from "@/os/types"
+import { releaseHistory } from "@/lib/releases"
 
 export const metadata: Metadata = {
   title: "About",
@@ -91,7 +91,7 @@ export default async function AboutPage() {
               <h2 className="text-base font-semibold">Release history</h2>
             </div>
             <ul className="flex flex-col">
-              {OS_HISTORY.slice(-2)
+              {releaseHistory.slice(-2)
                 .reverse()
                 .map((release) => (
                   <li
