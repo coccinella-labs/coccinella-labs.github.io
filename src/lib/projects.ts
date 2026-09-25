@@ -2027,13 +2027,13 @@ overview:
   {
     name: 'tokensdk',
     slug: 'tokensdk',
-    description: 'Harpertoken SDK.',
+    description: 'Official TypeScript client for the Coccinella API.',
     language: 'TypeScript',
     category: 'Library',
     github: 'https://github.com/coccinella-labs/tokensdk',
     overview:
-      'A TypeScript and JavaScript client for the Harper REST API, intended for server-side use and generated with Stainless. It installs as harpertoken, takes an API key at construction, and the full surface is documented in api.md.',
-    installation: 'npm install harpertoken',
+      'A TypeScript and JavaScript client for the Coccinella REST API, intended for server-side use and generated with Stainless. It installs as @coccinella-labs/tokensdk, requires a base URL from the COCINELLA_BASE_URL option or environment variable, and reads an optional API key from COCINELLA_API_KEY. The full surface is documented in api.md.',
+    installation: 'npm install @coccinella-labs/tokensdk',
     license: 'Apache-2.0',
     status: 'Stable',
     related: [],
