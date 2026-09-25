@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react"
 import ThemeSwitch from "./ThemeSwitch"
 
 const links = [
-  { href: "/#showcase", section: "showcase", label: "Products" },
+  { href: "/#systems", section: "systems", label: "Systems" },
   { href: "/#projects", section: "projects", label: "Projects" },
   { href: "/about/", section: null, label: "About" },
 ]

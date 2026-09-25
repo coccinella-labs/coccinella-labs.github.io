@@ -43,9 +43,9 @@ export function HarperMockup() {
               On it. I{"'"}ll draft the plan, run the jobs with your approval,
               and hand you a signed release.
               <span className="ml-1 inline-flex gap-0.5">
-                <span className="size-1 animate-dot rounded-full bg-muted" style={{ animationDelay: "0ms" }} />
-                <span className="size-1 animate-dot rounded-full bg-muted" style={{ animationDelay: "150ms" }} />
-                <span className="size-1 animate-dot rounded-full bg-muted" style={{ animationDelay: "300ms" }} />
+                <span className="size-1 rounded-full bg-muted/60" />
+                <span className="size-1 rounded-full bg-muted/60" />
+                <span className="size-1 rounded-full bg-muted/60" />
               </span>
             </div>
             <div className="rounded-lg border border-line bg-background p-3">
@@ -98,7 +98,7 @@ export function HarperMockup() {
             </li>
             <li className="rounded-md bg-line/50 px-2 py-1.5">
               <div className="flex items-center gap-2">
-                <span className="size-2.5 animate-spin rounded-full border border-foreground border-t-transparent" />
+                <span className="size-2.5 rounded-full border border-foreground/40" />
                 <p className="text-xs font-medium">Draft release notes</p>
               </div>
               <div className="mt-1 space-y-0.5 font-mono text-[10px] leading-4 text-muted">
@@ -106,7 +106,7 @@ export function HarperMockup() {
                 <p>&gt; feat: serialization, api, harness</p>
               </div>
               <div className="mt-1.5 h-0.5 overflow-hidden rounded bg-line">
-                <div className="h-full w-1/3 animate-progress bg-accent/60" />
+                <div className="h-full w-1/3 rounded bg-accent/60" />
               </div>
             </li>
             <li className="flex items-center gap-2 rounded-md px-2 py-1.5 text-muted">
@@ -163,7 +163,7 @@ export function OrganicTypingMockup() {
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold">Keystroke analysis</span>
           <span className="flex items-center gap-1.5 text-[11px] text-accent">
-            <span className="size-1.5 animate-pulse rounded-full bg-accent" />
+            <span className="size-1.5 rounded-full bg-accent" />
             Live
           </span>
         </div>
@@ -171,11 +171,8 @@ export function OrganicTypingMockup() {
           {[38, 52, 34, 64, 46, 72, 40, 58, 66, 30].map((h, i) => (
             <div
               key={i}
-              style={{
-                height: `${h}%`,
-                animationDelay: `${i * 0.09}s`,
-              }}
-              className="grow origin-bottom animate-eq rounded-sm bg-accent/50"
+              style={{ height: `${h}%` }}
+              className="grow rounded-sm bg-accent/40"
             />
           ))}
         </div>
@@ -216,7 +213,7 @@ export function MemoraxxMockup() {
           Nothing else changed internally.
         </p>
         <div className="mt-2 h-0.5 w-1/2 overflow-hidden rounded bg-white/10">
-          <div className="h-full w-1/3 animate-progress bg-white/40" />
+          <div className="h-full w-1/3 rounded bg-white/40" />
         </div>
         <p className="mt-2 text-muted">
           $ <span className="animate-blink">▋</span>
@@ -233,10 +230,10 @@ export function HautofixMockup() {
       <div className="flex-1 bg-background p-4 font-mono text-[12px] leading-6">
         <p>
           The team ships{" "}
-          <span className="animate-ghost rounded-sm bg-line/60 text-muted">
+          <span className="rounded-sm bg-line/60 text-muted">
             the release notes on Friday.
           </span>{" "}
-          <span className="animate-pulse text-foreground/50">|</span>
+          <span className="text-foreground/50">|</span>
         </p>
         <p className="mt-1 text-muted">Nothing else went out this week.</p>
         <p className="mt-1 text-muted">Signatures are verified before publish.</p>
@@ -312,15 +309,15 @@ export function BrowserMockup() {
         <span className="text-muted/40">›</span>
         <span className="text-muted">↻</span>
         <div className="flex min-w-0 flex-1 items-center gap-2 rounded-md border border-line bg-background px-2 py-1">
-          <span className="size-2 animate-pulse rounded-full bg-accent/50" />
+          <span className="size-2 rounded-full bg-accent/50" />
           <span className="truncate font-mono text-[10px] text-muted">
             https://coccinella-labs.github.io
           </span>
-          <span className="ml-auto size-3 shrink-0 animate-spin rounded-full border border-muted border-t-transparent" />
+          <span className="ml-auto size-3 rounded-full border border-muted/50" />
         </div>
       </div>
       <div className="h-0.5 overflow-hidden bg-line/40">
-        <div className="h-full w-1/3 animate-progress bg-accent/50" />
+        <div className="h-full w-1/3 rounded bg-accent/50" />
       </div>
       <div className="grid flex-1 grid-cols-2 gap-2 bg-background p-3">
         <div className="col-span-2 rounded-md border border-line bg-surface px-3 py-2">
@@ -370,15 +367,15 @@ export function VesperMockup() {
         </div>
         <div className="rounded-lg border border-line bg-surface px-2.5 py-2">
           <p className="flex items-center gap-2 text-[11px] font-medium">
-            <span className="size-2.5 shrink-0 animate-spin rounded-full border border-foreground border-t-transparent" />
+            <span className="size-2.5 rounded-full border border-foreground/40" />
             LGTM · 2 suggestions
           </p>
           <p className="mt-0.5 text-[10px] leading-4 text-muted">
             &quot;this also affects ci/setup.sh&quot;
             <span className="ml-1 inline-flex gap-0.5 align-baseline">
-              <span className="size-1 animate-dot rounded-full bg-muted" style={{ animationDelay: "0ms" }} />
-              <span className="size-1 animate-dot rounded-full bg-muted" style={{ animationDelay: "150ms" }} />
-              <span className="size-1 animate-dot rounded-full bg-muted" style={{ animationDelay: "300ms" }} />
+              <span className="size-1 rounded-full bg-muted/60" />
+              <span className="size-1 rounded-full bg-muted/60" />
+              <span className="size-1 rounded-full bg-muted/60" />
             </span>
           </p>
         </div>
@@ -421,7 +418,7 @@ export function PressMockup() {
               <p className="mt-1.5 truncate text-[10px] font-medium">{title}</p>
               <p className="text-[9px] text-muted">{meta}</p>
               <div className="mt-1 h-0.5 overflow-hidden rounded bg-line">
-                <div className="h-full w-1/3 animate-progress bg-accent/40" />
+                <div className="h-full w-1/3 rounded bg-accent/40" />
               </div>
             </div>
           ))}
@@ -430,7 +427,7 @@ export function PressMockup() {
       <div className="flex items-center justify-between border-t border-line px-4 py-2 text-[11px] text-muted">
         <span>142 books</span>
         <span className="flex items-center gap-1 font-mono">
-          <span className="size-1 animate-pulse rounded-full bg-accent" />
+          <span className="size-1 rounded-full bg-accent" />
           sync
         </span>
       </div>
@@ -456,7 +453,7 @@ export function TokensdkMockup() {
         </p>
         <div className="mt-2 rounded-md border border-line px-2 py-1.5 text-[10px] text-muted">
           <p className="flex items-center gap-1.5 text-emerald-500">
-            <span className="size-2.5 animate-spin rounded-full border border-emerald-500 border-t-transparent" />
+            <span className="size-2.5 rounded-full bg-emerald-500/60" />
             token issued
           </p>
           <p>hrtk_8f3a9c…</p>
@@ -482,7 +479,7 @@ export function OmnnitypeMockup() {
         </p>
         <p className="mt-1 text-muted">12 modules · 154ms</p>
         <div className="mt-1.5 h-0.5 w-2/3 overflow-hidden rounded bg-white/10">
-          <div className="h-full w-1/3 animate-progress bg-white/30" />
+          <div className="h-full w-1/3 rounded bg-white/30" />
         </div>
         <div className="mt-2 rounded-md border border-red-500/30 bg-red-500/10 px-2.5 py-2 text-red-400">
           <p>error: mismatched types</p>
@@ -493,7 +490,7 @@ export function OmnnitypeMockup() {
       </div>
       <div className="flex items-center justify-between border-t border-line px-4 py-2 text-[11px] text-muted">
         <span className="flex items-center gap-1.5">
-            <span className="size-1 animate-pulse rounded-full bg-emerald-500" />
+            <span className="size-1 rounded-full bg-emerald-500" />
             strict · CI
           </span>
         <span className="font-mono">rust 1.85</span>
@@ -525,8 +522,8 @@ export function VertexMockup() {
             {[44, 70, 30, 58, 38, 26].map((h, i) => (
               <div
                 key={i}
-                style={{ height: `${h}%`, animationDelay: `${i * 0.1}s` }}
-                className="grow origin-bottom animate-eq rounded-sm bg-accent/50"
+                style={{ height: `${h}%` }}
+                className="grow rounded-sm bg-accent/40"
               />
             ))}
           </div>
@@ -547,14 +544,14 @@ export function VertexMockup() {
               Trace data flow before touching the model.
             </p>
             <div className="mt-1.5 h-0.5 overflow-hidden rounded bg-line">
-              <div className="h-full w-1/3 animate-progress bg-accent/60" />
+              <div className="h-full w-1/3 rounded bg-accent/60" />
             </div>
           </div>
         </div>
       </div>
       <div className="flex items-center justify-between border-t border-line px-4 py-2 text-[11px] text-muted">
         <span className="flex items-center gap-1.5">
-          <span className="size-1 animate-pulse rounded-full bg-accent" />
+          <span className="size-1 rounded-full bg-accent" />
           evidence verified
         </span>
         <span className="font-mono">typescript</span>

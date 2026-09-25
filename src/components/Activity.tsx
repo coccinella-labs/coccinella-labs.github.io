@@ -194,7 +194,7 @@ export default function Activity() {
         <div className="rounded-xl border border-line p-6">
           <h3 className="flex items-center gap-2 text-base font-semibold">
             Latest Releases
-            <span className="size-1.5 animate-pulse rounded-full bg-emerald-500" />
+            <span className="size-1.5 rounded-full bg-emerald-500" />
           </h3>
           <ul className="mt-4 flex flex-col">
             {liveReleases.length > 0 ? (
@@ -234,7 +234,7 @@ export default function Activity() {
         <div className="rounded-xl border border-line p-6">
           <h3 className="flex items-center gap-2 text-base font-semibold">
             Recently Active
-            <span className="size-1.5 animate-pulse rounded-full bg-emerald-500" />
+            <span className="size-1.5 rounded-full bg-emerald-500" />
           </h3>
           <ul className="mt-4 flex flex-col">
             {liveActivity.length > 0 ? (

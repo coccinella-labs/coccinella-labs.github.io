@@ -46,6 +46,13 @@ export const OS_HISTORY: OSRelease[] = [
     notes:
       "First stated release. Serves 11 apps with windowing, taskbar, search, boot screen, and live GitHub and Hugging Face data.",
   },
+  {
+    version: "0.2.0",
+    name: "Two Spot",
+    date: "2026-09-25",
+    notes:
+      "Quieted surface. Drops the boot screen, status bar, and in-OS search; live metrics become static fact lines. The OS now sits below the catalog as an exploration layer.",
+  },
 ]
 
 const OS_CURRENT = OS_HISTORY[OS_HISTORY.length - 1]

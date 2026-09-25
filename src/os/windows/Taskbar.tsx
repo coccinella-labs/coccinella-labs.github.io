@@ -35,7 +35,7 @@ export default function Taskbar({ wins, apps, activeId, onSelect }: Props) {
 
   return (
     <div className="fixed bottom-3 left-1/2 z-[90] flex max-w-[94vw] -translate-x-1/2 items-center gap-1 overflow-x-auto rounded-full border border-neutral-900/10 bg-white/90 px-2 py-1.5 shadow-2xl shadow-black/20 backdrop-blur dark:border-white/15 dark:bg-[#0b0e14]/90 dark:shadow-black/50">
-      <span className="mx-1 size-2.5 shrink-0 rounded-full bg-[#f34b7d]" />
+      <span className="mx-1 size-2.5 shrink-0 rounded-full bg-neutral-900/20 dark:bg-white/25" />
       {wins.map((win) => {
         const app = apps.find((candidate) => candidate.name === win.id)
         if (!app) return null

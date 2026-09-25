@@ -118,19 +118,17 @@ export default function AppWindow({
         </div>
       </div>
       <div className="flex items-center gap-2 border-b border-line px-4 py-1.5 font-mono text-[10px] text-muted">
-        <span className="size-1 shrink-0 animate-pulse rounded-full bg-emerald-500" />
         {app.source === "github" ? (
           info ? (
             <span className="truncate">
-              ★ {info.stars} · {info.language ?? "code"} · updated{" "}
-              {timeAgo(info.pushedAt)}
+              {info.language ?? "code"} · updated {timeAgo(info.pushedAt)}
             </span>
           ) : (
-            <span>live · connecting…</span>
+            <span className="truncate">github · coccinella-labs/{app.name}</span>
           )
         ) : (
           <span className="truncate">
-            {hfSummary ?? "live · huggingface.co/harpertoken"}
+            {hfSummary ?? "huggingface.co/harpertoken"}
           </span>
         )}
         <a

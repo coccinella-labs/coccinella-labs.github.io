@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import SiteHeader from "@/components/SiteHeader"
 import Footer from "@/components/Footer"
-import { Wallpaper } from "@/os/OSHome"
 import { principles } from "@/lib/projects"
 import { OS_CODENAME, OS_HISTORY, OS_NAME, OS_VERSION } from "@/os/types"
 
@@ -15,7 +14,6 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen overflow-x-clip bg-[#f1f3f6] text-foreground dark:bg-[#0b0e14]">
-      <Wallpaper />
       <div className="relative flex min-h-screen flex-col">
         <SiteHeader />
         <main className="flex-1">

@@ -1,284 +1,23 @@
 "use client"
 
-import Image from "next/image"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { HarperMockup } from "./mockups"
-import { fmtOSDate, fmtOSTime, timeAgo, useBattery, useConnection, useHFItems, useOnline, useOrgRepos, useRtt } from "@/lib/osLive"
+import { useCallback, useMemo, useState } from "react"
+import { timeAgo, useHFItems, useOrgRepos } from "@/lib/osLive"
 import type { App, WinState } from "./types"
 import { OS_CODENAME, OS_NAME, OS_VERSION } from "./types"
-import { allApps, apps, harperApp } from "./apps"
+import { allApps, apps } from "./apps"
 import AppWindow from "./windows/AppWindow"
 import Taskbar from "./windows/Taskbar"
 
 const focusable =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/40 dark:focus-visible:ring-white/60"
 
-function StatusBar() {
-  const [now, setNow] = useState<Date | null>(null)
-  const online = useOnline()
-  const battery = useBattery()
-  const connection = useConnection()
-  const rtt = useRtt()
-  const offline = online === false
-  const wifiLevel = offline
-    ? 0
-    : rtt !== null
-      ? rtt < 200
-        ? 3
-        : rtt < 700
-          ? 2
-          : 1
-      : connection?.effectiveType === "slow-2g" ||
-          connection?.effectiveType === "2g"
-        ? 1
-        : connection?.effectiveType === "3g"
-          ? 2
-          : 3
-  const arc = (atLeast: number) =>
-    wifiLevel >= atLeast ? "opacity-100" : "opacity-20"
-  const wifiTitle = offline
-    ? "Wi-Fi · offline"
-    : rtt !== null
-      ? `Wi-Fi · ${rtt} ms${connection ? ` · ${connection.effectiveType}` : ""}`
-      : connection
-        ? `Wi-Fi · ${connection.effectiveType}${connection.downlink !== null ? ` · ${connection.downlink} Mb/s` : ""}${connection.rtt !== null ? ` · ${connection.rtt} ms` : ""}`
-        : "Wi-Fi"
-
-  useEffect(() => {
-    const immediate = window.setTimeout(() => setNow(new Date()), 0)
-    const id = window.setInterval(() => setNow(new Date()), 1000)
-    return () => {
-      window.clearTimeout(immediate)
-      window.clearInterval(id)
-    }
-  }, [])
-
-  const time = now ? fmtOSTime(now) : "--:--"
-  const date = now ? fmtOSDate(now) : ""
-
-  return (
-    <header className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-6 py-4 text-neutral-500 dark:text-white/60 lg:px-8">
-      <div className="flex items-center gap-3 text-xs">
-        <span className="font-mono">{date}</span>
-        <span className="hidden text-neutral-900/20 sm:inline dark:text-white/20">·</span>
-        <span
-          className="hidden font-mono text-xs tracking-tight sm:inline"
-          title={`${OS_CODENAME}`}
-        >
-          {OS_NAME} <span className="opacity-60">· v{OS_VERSION}</span>
-        </span>
-      </div>
-      <div className="flex items-center gap-3">
-        <span className="hidden font-mono text-xs sm:inline">
-          {online === false ? "offline" : "online"}
-        </span>
-        <span title={wifiTitle}>
-          <svg
-            className={`size-4 ${offline ? "text-red-500" : "text-neutral-400 dark:text-white/40"}`}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.75"
-            strokeLinecap="round"
-            aria-hidden="true"
-          >
-            <path
-              d="M2 8.82a15 15 0 0 1 20 0"
-              className={arc(3)}
-            />
-            <path
-              d="M5 12.55a11 11 0 0 1 14.08 0"
-              className={arc(2)}
-            />
-            <path
-              d="M8.5 15.5a6.5 6.5 0 0 1 7.09 0"
-              className={arc(1)}
-            />
-            <path d="M12 20h.01" />
-          </svg>
-        </span>
-        <span
-          className="flex items-center gap-1.5"
-          title={
-            battery
-              ? `Battery ${Math.round(battery.level * 100)}% · ${battery.charging ? "charging" : "discharging"}`
-              : "Battery"
-          }
-        >
-          <svg
-            className={`size-4 ${
-              battery
-                ? battery.charging
-                  ? "text-emerald-500"
-                  : battery.level <= 0.2
-                    ? "text-red-500"
-                    : "text-neutral-400 dark:text-white/40"
-                : "text-neutral-400 dark:text-white/40"
-            }`}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.75"
-            strokeLinecap="round"
-            aria-hidden="true"
-          >
-            <rect x="2" y="7" width="17" height="10" rx="2.5" />
-            <path d="M22 11v2" />
-          </svg>
-          {battery ? (
-            <span className="hidden font-mono text-xs sm:inline">
-              {Math.round(battery.level * 100)}%{battery.charging ? " ⚡" : ""}
-            </span>
-          ) : null}
-        </span>
-        <span className="font-mono text-base font-medium tracking-tight text-neutral-900 dark:text-white">
-          {time}
-        </span>
-      </div>
-    </header>
-  )
-}
-
-export function Wallpaper() {
-  return (
-    <div className="pointer-events-none fixed inset-0 overflow-hidden">
-      <div
-        className="absolute inset-0 dark:hidden"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, rgba(17,17,17,0.08) 1px, transparent 0)",
-          backgroundSize: "26px 26px",
-        }}
-      />
-      <div
-        className="absolute inset-0 hidden dark:block"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0)",
-          backgroundSize: "26px 26px",
-        }}
-      />
-      <div className="absolute -left-48 -top-48 size-[640px] rounded-full bg-[#f34b7d]/15 blur-[130px] dark:bg-[#f34b7d]/20" />
-      <div className="absolute -bottom-56 right-0 size-[640px] rounded-full bg-sky-500/20 blur-[130px] dark:bg-sky-500/15" />
-      <div className="absolute left-1/2 top-1/3 size-[480px] -translate-x-1/2 rounded-full bg-white/70 blur-[120px] dark:bg-white/[0.03]" />
-    </div>
-  )
-}
-
-function BootScreen({ onDone }: { onDone: () => void }) {
-  return (
-    <div
-      className="fixed inset-0 z-[100] flex cursor-pointer flex-col items-center justify-center gap-6 bg-[#0b0e14]"
-      onClick={onDone}
-      role="button"
-      aria-label="Skip boot screen"
-      tabIndex={0}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") onDone()
-      }}
-    >
-      <Image
-        src="/coccinella-labs-icon.png"
-        alt=""
-        width={72}
-        height={72}
-        priority
-        className="size-16 rounded-full sm:size-[72px]"
-      />
-      <p className="font-mono text-sm tracking-tight text-white/70">
-        {OS_NAME}
-      </p>
-      <p className="font-mono text-[10px] tracking-tight text-white/30">
-        v{OS_VERSION} · {OS_CODENAME}
-      </p>
-      <div className="h-1 w-48 overflow-hidden rounded-full bg-white/10">
-        <div className="h-full w-1/3 animate-progress bg-[#f34b7d]/80" />
-      </div>
-    </div>
-  )
-}
-
-function Banner({
-  onOpen,
-  live,
-}: {
-  onOpen: (app: App) => void
-  live: string | null
-}) {
-  return (
-    <div className="relative overflow-hidden rounded-3xl border border-neutral-900/10 bg-neutral-900/[0.03] dark:border-white/15 dark:bg-white/[0.04]">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 size-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f34b7d]/[0.07] blur-[130px]" />
-      <div className="pointer-events-none absolute -bottom-48 -left-32 size-[360px] rounded-full bg-sky-500/10 blur-[130px]" />
-      <div className="relative grid gap-10 p-8 sm:p-10 lg:grid-cols-[1fr_1.15fr] lg:items-center">
-        <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-500 dark:text-white/40">
-            flagship · agent harness
-          </p>
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-neutral-900 lg:text-5xl dark:text-white">
-            harper<span className="text-[#f34b7d]">.</span>
-          </h1>
-          <p className="mt-4 max-w-md text-sm leading-7 text-neutral-600 dark:text-white/60">
-            An agent harness, not a pretty chatbot. Harper plans real work,
-            executes it as sandboxed jobs, pauses for your approval, and ships
-            audited results, end to end.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {["sandboxed jobs", "human approvals", "self-hosted"].map((chip) => (
-              <span
-                key={chip}
-                className="rounded-full border border-neutral-900/15 px-3 py-1 font-mono text-[11px] text-neutral-600 dark:border-white/15 dark:text-white/60"
-              >
-                {chip}
-              </span>
-            ))}
-          </div>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={() => onOpen(harperApp)}
-              className={`rounded-lg bg-[#f34b7d] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#ff5f95] ${focusable}`}
-            >
-              Open harper
-            </button>
-            <a
-              href="https://github.com/coccinella-labs/harper"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`rounded-lg border border-neutral-900/20 px-5 py-2.5 text-sm font-medium text-neutral-800 transition-colors hover:border-neutral-900/50 hover:text-neutral-900 dark:border-white/20 dark:text-white/80 dark:hover:border-white/50 dark:hover:text-white ${focusable}`}
-            >
-              Source
-            </a>
-          </div>
-          {live ? (
-            <p className="mt-4 animate-ghost font-mono text-[11px] text-neutral-500 dark:text-white/40">
-              {live}
-            </p>
-          ) : (
-            <p
-              aria-hidden="true"
-              className="mt-4 select-none font-mono text-[11px] opacity-0"
-            >
-              &nbsp;
-            </p>
-          )}
-        </div>
-        <div className="hidden lg:block">
-          <div className="rounded-xl shadow-2xl shadow-black/40">
-            <HarperMockup />
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 function Tile({
   app,
-  live,
+  fact,
   onOpen,
 }: {
   app: App
-  live: string | null
+  fact: string | null
   onOpen: (app: App) => void
 }) {
   return (
@@ -286,7 +25,7 @@ function Tile({
       key={app.name}
       type="button"
       onClick={() => onOpen(app)}
-      className={`group w-44 shrink-0 snap-start rounded-2xl border border-neutral-900/10 bg-neutral-900/[0.03] p-4 text-left transition-all duration-200 hover:border-neutral-900/25 hover:bg-neutral-900/[0.05] hover:shadow-[0_0_0_3px_rgba(243,75,125,0.35)] sm:w-52 dark:border-white/15 dark:bg-white/[0.04] dark:hover:border-white/30 dark:hover:bg-white/[0.07] ${focusable}`}
+      className={`w-44 shrink-0 snap-start rounded-2xl border border-neutral-900/10 bg-neutral-900/[0.03] p-4 text-left transition-colors hover:border-neutral-900/25 hover:bg-neutral-900/[0.05] sm:w-52 dark:border-white/15 dark:bg-white/[0.04] dark:hover:border-white/30 dark:hover:bg-white/[0.07] ${focusable}`}
     >
       <div
         className={`flex size-11 items-center justify-center rounded-xl bg-gradient-to-br text-lg text-white ${app.tint}`}
@@ -299,21 +38,15 @@ function Tile({
       <p className="mt-0.5 truncate text-xs text-neutral-500 dark:text-white/45">
         {app.tag}
       </p>
-      {live ? (
-        <p className="mt-1.5 animate-ghost truncate font-mono text-[10px] text-neutral-500 dark:text-white/40">
-          {live}
+      {fact ? (
+        <p className="mt-1.5 truncate font-mono text-[10px] text-neutral-500 dark:text-white/40">
+          {fact}
         </p>
       ) : (
-        <p
-          aria-hidden="true"
-          className="mt-1.5 select-none truncate font-mono text-[10px] opacity-0"
-        >
+        <p aria-hidden="true" className="mt-1.5 select-none font-mono text-[10px] opacity-0">
           &nbsp;
         </p>
       )}
-      <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-neutral-900/0 transition-colors group-hover:text-neutral-900/40 dark:text-white/0 dark:group-hover:text-white/40">
-        open ↗
-      </p>
     </button>
   )
 }
@@ -322,26 +55,28 @@ function Shelf({
   title,
   hint,
   apps,
-  liveFor,
+  factFor,
   onOpen,
 }: {
   title: string
   hint: string
   apps: App[]
-  liveFor: (app: App) => string | null
+  factFor: (app: App) => string | null
   onOpen: (app: App) => void
 }) {
   return (
-    <div className="mt-12">
+    <div className="mt-10">
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-sm font-semibold tracking-wide text-neutral-700 dark:text-white/80">
           {title}
         </h2>
-        <span className="font-mono text-[11px] text-neutral-400 dark:text-white/30">{hint}</span>
+        <span className="font-mono text-[11px] text-neutral-400 dark:text-white/30">
+          {hint}
+        </span>
       </div>
       <div className="-mx-6 flex snap-x gap-4 overflow-x-auto px-6 pb-4 pt-2 lg:-mx-8 lg:px-8 [scrollbar-color:rgba(255,255,255,0.2)_transparent] [scrollbar-width:thin]">
         {apps.map((app) => (
-          <Tile key={app.name} app={app} live={liveFor(app)} onOpen={onOpen} />
+          <Tile key={app.name} app={app} fact={factFor(app)} onOpen={onOpen} />
         ))}
       </div>
     </div>
@@ -350,21 +85,9 @@ function Shelf({
 
 export default function OSHome() {
   const [wins, setWins] = useState<WinState[]>([])
-  const [query, setQuery] = useState("")
-  const [booted, setBooted] = useState(false)
-  const searchRef = useRef<HTMLInputElement>(null)
   const repos = useOrgRepos()
   const hfModels = useHFItems("models")
   const hfSpaces = useHFItems("spaces")
-
-  useEffect(() => {
-    const wait = window.matchMedia("(prefers-reduced-motion: reduce)")
-      .matches
-      ? 0
-      : 1200
-    const id = window.setTimeout(() => setBooted(true), wait)
-    return () => window.clearTimeout(id)
-  }, [])
 
   const openApp = useCallback((app: App) => {
     setWins((prev) => {
@@ -454,64 +177,18 @@ export default function OSHome() {
     )
   }, [])
 
-  useEffect(() => {
-    const onKey = (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement
-      const typing =
-        target.tagName === "INPUT" || target.tagName === "TEXTAREA"
-      if (event.key === "/" && !typing && !event.metaKey && !event.ctrlKey) {
-        event.preventDefault()
-        searchRef.current?.focus()
-      } else if (event.key === "Escape") {
-        if (query) {
-          setQuery("")
-          searchRef.current?.blur()
-        } else {
-          setWins((prev) => {
-            const visible = prev.filter((win) => !win.minimized)
-            if (visible.length === 0) return prev
-            const top = visible[visible.length - 1]
-            return prev.filter((win) => win.id !== top.id)
-          })
-        }
-      }
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [query])
-
-  const liveFor = useCallback(
+  const factFor = useCallback(
     (app: App): string | null => {
       if (app.source === "hf") {
         if (!hfModels || !hfSpaces) return null
-        const likes = hfModels.reduce((sum, item) => sum + item.likes, 0)
-        return `♥ ${likes} · ${hfModels.length} models · ${hfSpaces.length} spaces`
+        return `${hfModels.length} models · ${hfSpaces.length} spaces`
       }
       const info = repos?.[app.name]
       if (!info) return null
-      return `★ ${info.stars} · ${info.language ?? "code"} · ${timeAgo(info.pushedAt)}`
+      return `${info.language ?? "code"} · updated ${timeAgo(info.pushedAt)}`
     },
     [repos, hfModels, hfSpaces]
   )
-
-  const harperInfo = repos?.harper
-  const harperLive = harperInfo
-    ? `★ ${harperInfo.stars} · ${harperInfo.language ?? "code"} · updated ${timeAgo(harperInfo.pushedAt)} · live from GitHub`
-    : null
-
-  const hfSummary =
-    hfModels && hfSpaces
-      ? `${hfModels.length} models · ${hfSpaces.length} spaces · live from Hugging Face`
-      : null
-
-  const q = query.trim().toLowerCase()
-  const results = q
-    ? apps.filter(
-        (app) =>
-          app.name.toLowerCase().includes(q) ||
-          app.tag.toLowerCase().includes(q)
-      )
-    : []
 
   const activeId = useMemo(() => {
     const visible = wins.filter((win) => !win.minimized)
@@ -519,69 +196,37 @@ export default function OSHome() {
     return visible[visible.length - 1].id
   }, [wins])
 
+  const hfSummary =
+    hfModels && hfSpaces
+      ? `${hfModels.length} models · ${hfSpaces.length} spaces`
+      : null
+
   return (
-    <section id="home" className="relative border-b border-line">
-      {!booted ? <BootScreen onDone={() => setBooted(true)} /> : null}
-      <div className="relative">
-        <StatusBar />
-        <div className="relative mx-auto w-full max-w-[1200px] px-6 pb-16 lg:px-8">
-          <Banner onOpen={openApp} live={harperLive} />
-          <div className="relative mt-10">
-            <span
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 font-mono text-sm text-neutral-400 dark:text-white/30"
-              aria-hidden="true"
-            >
-              ⌕
-            </span>
-            <input
-              ref={searchRef}
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" && results.length > 0) {
-                  openApp(results[0])
-                }
-              }}
-              type="search"
-              placeholder="Search apps, models, tools…"
-              aria-label="Search apps"
-              className={`w-full rounded-2xl border border-neutral-900/15 bg-neutral-900/[0.04] py-3 pl-11 pr-16 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-900/40 focus:outline-none dark:border-white/15 dark:bg-white/[0.05] dark:text-white dark:placeholder:text-white/30 dark:focus:border-white/40 ${focusable}`}
-            />
-            {query ? (
-              <button
-                type="button"
-                aria-label="Clear search"
-                onClick={() => {
-                  setQuery("")
-                  searchRef.current?.focus()
-                }}
-                className={`absolute right-3 top-1/2 -translate-y-1/2 rounded-md px-2 py-1 font-mono text-xs text-neutral-500 transition-colors hover:text-neutral-900 dark:text-white/50 dark:hover:text-white ${focusable}`}
-              >
-                ✕
-              </button>
-            ) : (
-              <kbd className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 rounded border border-neutral-900/15 px-1.5 font-mono text-[11px] text-neutral-400 dark:border-white/15 dark:text-white/40">
-                /
-              </kbd>
-            )}
+    <section id="home" className="border-b border-line">
+      <div className="relative border-t border-line">
+        <div className="mx-auto w-full max-w-[1200px] px-6 py-20 lg:px-8 lg:py-24">
+          <div className="max-w-2xl">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-accent">
+              OS lab
+            </p>
+            <h2 className="text-3xl font-semibold tracking-tight lg:text-4xl">
+              coccinella-labs OS
+            </h2>
+            <p className="mt-4 text-base leading-7 text-muted">
+              Every product opened as a working window. Pick an app and it
+              opens over the page — no boot sequence, no gauges.
+            </p>
+            <p className="mt-3 font-mono text-[11px] text-muted">
+              {OS_NAME} · v{OS_VERSION} · {OS_CODENAME}
+            </p>
           </div>
-          {q ? (
-            <Shelf
-              title={`${results.length} result${results.length === 1 ? "" : "s"}`}
-              hint="enter opens the first hit"
-              apps={results}
-              liveFor={liveFor}
-              onOpen={openApp}
-            />
-          ) : (
-            <Shelf
-              title="Applications"
-              hint="select an app"
-              apps={apps}
-              liveFor={liveFor}
-              onOpen={openApp}
-            />
-          )}
+          <Shelf
+            title="Applications"
+            hint="select an app to open a window"
+            apps={apps}
+            factFor={factFor}
+            onOpen={openApp}
+          />
         </div>
       </div>
       {wins.map((win, index) => {
