@@ -38,8 +38,9 @@ export default async function AboutPage() {
             A developer tools and systems company, building in the open.
           </p>
           <p className="mt-4 text-base leading-7 text-muted">
-            Every project is a working repository with tests, releases, and
-            documentation, kept small enough to read and replace.
+            Every project is a public repository with documentation, kept small
+            enough to read and replace. Many also ship tests and tagged
+            releases.
           </p>
           <p className="mt-4 text-base leading-7 text-muted">
             The work is organized into five systems: agent infrastructure, GPU
