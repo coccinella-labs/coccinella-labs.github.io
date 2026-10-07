@@ -2216,10 +2216,35 @@ overview:
     overview:
       'Detects the build environment, manages sources, and carries fixes for common compile failures. System Integrity Protection still prevents replacing the kernel on a running Mac.',
     installation: 'git clone https://github.com/coccinella-labs/xnubuild',
-    license: 'MIT',
-    status: 'Experimental',
-    related: [],
-  },]
+      license: 'MIT',
+      status: 'Experimental',
+      related: [],
+    },
+    {
+      name: 'sandbox lifecycle',
+      slug: 'sandbox-lifecycle',
+      description: 'Controlled sandbox lifecycle dataset with mechanical labels.',
+      language: 'Python',
+      category: 'Experiment',
+      github: 'https://github.com/coccinella-labs/sandbox-lifecycle',
+      overview:
+        'Two released datasets, both 4,000 sequences each, built from controlled sandbox runs rather than captured production traffic. v0.1.0 covers lifecycle events: every sequence is a create, execute, exit, and teardown with monotonic timing, and the labels are derived mechanically from the procedure and the observed result. v1.0.0 is an ordering experiment where order is the only signal, so every sequence carries an identical type and exit-code bag and an identical clean final state, differing only in where the wait falls in the failure lifecycle. No stdout, stderr, environment, paths, hostnames, or credentials are collected at any point.',
+      architecture:
+        'The collectors are checked in alongside the data they produced. collect.py is pinned at collector_version 0.1.0 and collect_v1ord.py produces the ordering set, so rerunning either reproduces the procedure. Timing values differ from run to run by design, which the schema records rather than normalizes away.',
+      capabilities: [
+        'v0.1.0: 4,000 lifecycle sequences with labels derived from procedure and result',
+        'v1.0.0: 4,000 ordering sequences where order is the only varying signal',
+        'Field-only baselines score chance; an ordered GRU scores 1.0000 on two seeds',
+        'Schema documents the timeout sentinel and the label rules',
+      ],
+      usage:
+        'Each file is one JSON object per line. Read SCHEMA.md for the field specification before parsing, then the matching VALIDATION report for coverage and label counts.',
+      installation: 'git clone https://github.com/coccinella-labs/sandbox-lifecycle',
+      license: 'MIT',
+      status: 'Experimental',
+      related: [],
+    },
+  ]
 
 export type Release = {
   version: string

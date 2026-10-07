@@ -1,7 +1,7 @@
 // The complete GitHub organization footprint: current repository count
 // including infrastructure, websites, archives, and mirrors that sit
 // outside the curated project catalog (/lib/projects).
-const FALLBACK_REPO_COUNT = 156
+const FALLBACK_REPO_COUNT = 157
 
 const headers: Record<string, string> = {
   Accept: "application/vnd.github+json",

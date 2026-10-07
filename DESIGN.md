@@ -42,7 +42,7 @@ Sections in render order (`src/app/page.tsx`):
 3. **Systems**: section intro, a 4-column index grid linking to each system
    row, then one row per system with stack, connects-to, and a collapsed
    repository list.
-4. **Projects**: a single collapsed disclosure ("Show all 145 projects")
+4. **Projects**: a single collapsed disclosure ("Show all 146 projects")
    over a search-and-filter index. Filter state syncs to URL search params.
 5. **Activity**: two collapsed disclosures ("Latest Releases",
    "Recently Active") fed live by GitHub org events, with a static fallback.
@@ -99,13 +99,13 @@ every effect is skipped entirely under `prefers-reduced-motion: reduce`.
   pre-hydration by an inline script, so there is no flash.
 - **Real data**: GitHub org events feed Activity, with a static fallback when
   the fetch fails. The repository count is fetched from the GitHub API during
-  the build and falls back to 156 if the API is unavailable.
+  the build and falls back to 157 if the API is unavailable.
 - **Catalog filters** sync to URL search params and are shareable.
 
 ## Scale
 
-- 145 project pages generated statically from `src/lib/projects.ts`.
-- 142 carry a factual Overview sourced from the repository's own README. Three
+- 146 project pages generated statically from `src/lib/projects.ts`.
+- 143 carry a factual Overview sourced from the repository's own README. Three
   placeholders (`bible`, `commitfix`, `gitkeep`) are intentionally left thin
   because their READMEs say nothing.
 - All content is typed data; interactivity is client-side only.
