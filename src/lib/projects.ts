@@ -2223,22 +2223,24 @@ overview:
     {
       name: 'sandbox lifecycle',
       slug: 'sandbox-lifecycle',
-      description: 'Controlled sandbox lifecycle dataset with mechanical labels.',
+      description:
+        'Controlled sandbox lifecycle dataset and a temporal ordering benchmark.',
       language: 'Python',
       category: 'Experiment',
       github: 'https://github.com/coccinella-labs/sandbox-lifecycle',
       overview:
-        'Two released datasets, both 4,000 sequences each, built from controlled sandbox runs rather than captured production traffic. v0.1.0 covers lifecycle events: every sequence is a create, execute, exit, and teardown with monotonic timing, and the labels are derived mechanically from the procedure and the observed result. v1.0.0 is an ordering experiment where order is the only signal, so every sequence carries an identical type and exit-code bag and an identical clean final state, differing only in where the wait falls in the failure lifecycle. No stdout, stderr, environment, paths, hostnames, or credentials are collected at any point.',
+        'Three configurations built from controlled sandbox runs rather than captured production traffic. v0.1.0 covers lifecycle events: every sequence is a create, execute, exit, and teardown with monotonic timing, and the labels are derived mechanically from the procedure and the observed result. v1.0.0 is an ordering experiment where every sequence carries an identical type and exit-code bag and an identical clean final state, differing only in where the wait falls in the failure lifecycle. v2 is a benchmark of 1,600 real-execution traces, published as native train, validation, and test splits at 1,120 / 240 / 240. No stdout, stderr, environment, paths, hostnames, or credentials are collected at any point.',
       architecture:
-        'The collectors are checked in alongside the data they produced. collect.py is pinned at collector_version 0.1.0 and collect_v1ord.py produces the ordering set, so rerunning either reproduces the procedure. Timing values differ from run to run by design, which the schema records rather than normalizes away.',
+        'The collectors are checked in alongside the data they produced. collect.py is pinned at collector_version 0.1.0, collect_v1ord.py produces the ordering set, and collect_v2.py produces the real-execution set with a repeat-aware split shuffled within contiguous time blocks so split membership does not correlate with collection time. Timing values differ from run to run by design, which the schema records rather than normalizes away. The v2 benchmark harness lives in bench/ and reports a cutoff sweep against explicit order-blind ceilings.',
       capabilities: [
         'v0.1.0: 4,000 lifecycle sequences with labels derived from procedure and result',
-        'v1.0.0: 4,000 ordering sequences where order is the only varying signal',
-        'Field-only baselines score chance; an ordered GRU scores 1.0000 on two seeds',
+        'v1.0.0: 4,000 ordering sequences, order sufficient against the declared counts-and-exit-codes budget, with a 0.0421 margin over the full order-blind ceiling',
+        'v2: 1,600 real-execution traces with native train, validation, and test splits, scored once against predeclared conditions',
+        'The v2 primary metric is fraction of headroom captured per cutoff, because the full-trace task saturates and cannot discriminate between architectures',
         'Schema documents the timeout sentinel and the label rules',
       ],
       usage:
-        'Each file is one JSON object per line. Read SCHEMA.md for the field specification before parsing, then the matching VALIDATION report for coverage and label counts.',
+        'Each release is one JSON object per line. Read SCHEMA.md for the field specification before parsing, then the matching VALIDATION report for coverage and label counts. For v2, load the published native splits directly rather than filtering a single file by a split column.',
       installation: 'git clone https://github.com/coccinella-labs/sandbox-lifecycle',
       license: 'MIT',
       status: 'Experimental',
