@@ -1,13 +1,13 @@
 import Counter from "@/components/Counter"
 import { getOrgRepoCount } from "@/lib/org"
 import { projects } from "@/lib/projects"
-import { systems } from "@/lib/systems"
+import { systemCount } from "@/lib/systems"
 
 export default async function Hero() {
   const facts = [
     { label: "projects", value: projects.length },
     { label: "repositories", value: await getOrgRepoCount() },
-    { label: "systems", value: systems.length },
+    { label: "systems", value: systemCount },
   ]
   return (
     <section className="border-b border-border">

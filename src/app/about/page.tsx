@@ -42,12 +42,12 @@ export default async function AboutPage() {
             documentation, kept small enough to read and replace.
           </p>
           <p className="mt-4 text-base leading-7 text-muted">
-            The work is organized into six systems: agent infrastructure, GPU
+            The work is organized into five systems: agent infrastructure, GPU
             and ML compute, runtimes and developer tooling, build and release
-            automation, models and datasets, and standalone apps and utilities.
-            Together they cover focused tools, shared libraries, the published
-            models and controlled data behind them, and the machinery that ships
-            them.
+            automation, and models and datasets. Together they cover focused
+            tools, shared libraries, the published models and controlled data
+            behind them, and the machinery that ships them. A small number of
+            standalone apps and shared legal documents sit beside the systems.
           </p>
           <p className="mt-4 text-base leading-7 text-muted">
             <a

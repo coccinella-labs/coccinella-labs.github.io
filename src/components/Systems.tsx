@@ -40,7 +40,8 @@ function SystemRow({ system }: { system: System }) {
     >
       <div>
         <p className="font-mono text-xs text-muted">
-          §{system.index} · {system.id}
+          {system.standalone ? "Outside the systems" : `§${system.index}`} ·{" "}
+          {system.id}
         </p>
         <h3 className="mt-2 text-xl font-semibold tracking-tight">
           {system.title}
@@ -100,7 +101,7 @@ export default function Systems() {
       id="systems"
       eyebrow="Systems"
       title="The depth underneath."
-      description="Agents that do work, compute that powers them, runtimes they run in, the machinery that ships them, the models and data behind them, and the standalone tools beside all of it."
+      description="Five systems: agents that do work, compute that powers them, runtimes they run in, the machinery that ships them, and the models and data behind them. Standalone tools sit beside all of it."
     >
       <nav
         aria-label="Systems index"
@@ -114,7 +115,8 @@ export default function Systems() {
           >
             <span className="font-medium">{system.title}</span>
             <span className="font-mono text-[11px] text-muted">
-              {system.members.length} repos
+              {system.members.length}{" "}
+              {system.standalone ? "standalone" : "repos"}
             </span>
           </Link>
         ))}

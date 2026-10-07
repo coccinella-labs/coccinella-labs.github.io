@@ -1,5 +1,8 @@
 // The technical layers underneath the Coccinella Labs collection.
 // Members must be real slugs from /lib/projects.
+//
+// `standalone` marks work that sits outside the five systems rather than
+// being a sixth one, matching how the organization profile presents it.
 export type System = {
   id: string
   index: string
@@ -8,6 +11,7 @@ export type System = {
   stack: string[]
   connectsTo: string[]
   members: string[]
+  standalone?: true
 }
 
 export const systems: System[] = [
@@ -104,15 +108,18 @@ export const systems: System[] = [
   },
   {
     id: "apps-utilities",
-    index: "06",
+    index: "",
     title: "Apps & utilities",
     remit:
-      "Standalone tools that sit outside the layers above: end-user applications and the shared legal documents that govern the collection.",
+      "Standalone tools outside the five systems above: end-user applications and the shared legal documents that govern the collection.",
     stack: ["Rust", "Dart", "Markdown"],
     connectsTo: [],
     members: ["browser", "clipb", "license"],
+    standalone: true,
   },
 ]
+
+export const systemCount = systems.filter((s) => !s.standalone).length
 
 export function getSystem(id: string): System | undefined {
   return systems.find((system) => system.id === id)
