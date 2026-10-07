@@ -39,7 +39,7 @@ Sections in render order (`src/app/page.tsx`):
 2. **Hero** (`src/components/Hero.tsx`): three figures only: project count,
    repository count, system count. `h1` is `sr-only`. No navigation, no
    search, no call to action.
-3. **Systems**: section intro, a 4-column index grid linking to each system
+3. **Systems**: section intro, a 3-column index grid linking to each system
    row, then one row per system with stack, connects-to, and a collapsed
    repository list.
 4. **Projects**: a single collapsed disclosure ("Show all 146 projects")

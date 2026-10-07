@@ -100,11 +100,11 @@ export default function Systems() {
       id="systems"
       eyebrow="Systems"
       title="The depth underneath."
-      description="Agents that do work, compute that powers them, runtimes they run in, and the machinery that ships them."
+      description="Agents that do work, compute that powers them, runtimes they run in, the machinery that ships them, the models and data behind them, and the standalone tools beside all of it."
     >
       <nav
         aria-label="Systems index"
-        className="grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-4"
+        className="grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-3"
       >
         {systems.map((system) => (
           <Link

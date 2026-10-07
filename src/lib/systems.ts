@@ -1,4 +1,4 @@
-// The four technical layers underneath the Palmshed collection.
+// The technical layers underneath the Coccinella Labs collection.
 // Members must be real slugs from /lib/projects.
 export type System = {
   id: string
@@ -36,12 +36,15 @@ export const systems: System[] = [
       "kernelswift",
       "macoskernel",
       "applekernel",
+      "core",
       "metal",
       "ml",
       "mlapi",
       "bitinfer",
       "mlxlm",
       "jupyterml",
+      "gpucomm-fs",
+      "gpucomm-bot",
     ],
   },
   {
@@ -51,7 +54,7 @@ export const systems: System[] = [
     remit:
       "CLI foundations, runtimes, and code tools the rest of the collection is built on.",
     stack: ["Rust", "Go", "TypeScript"],
-    connectsTo: ["build-release"],
+    connectsTo: ["gpu-ml-compute", "models-datasets", "build-release"],
     members: [
       "cli",
       "hub",
@@ -59,9 +62,9 @@ export const systems: System[] = [
       "omnitype",
       "vertex",
       "simengine",
-      "threading",
       "dotenv-keep",
       "harpertoken",
+      "tokensdk",
     ],
   },
   {
@@ -85,7 +88,29 @@ export const systems: System[] = [
       "auto-merge",
       "proof",
       "second",
+      "buildanywhere",
+      "bot",
     ],
+  },
+  {
+    id: "models-datasets",
+    index: "05",
+    title: "Models & datasets",
+    remit:
+      "Verified models and the controlled data behind them, published on Hugging Face. The training sources for the Hub models stay private.",
+    stack: ["Python"],
+    connectsTo: ["gpu-ml-compute", "runtime-tooling"],
+    members: ["rl", "sandbox-lifecycle"],
+  },
+  {
+    id: "apps-utilities",
+    index: "06",
+    title: "Apps & utilities",
+    remit:
+      "Standalone tools that sit outside the layers above: end-user applications and the shared legal documents that govern the collection.",
+    stack: ["Rust", "Dart", "Markdown"],
+    connectsTo: [],
+    members: ["browser", "clipb", "license"],
   },
 ]
 
