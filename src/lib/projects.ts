@@ -599,14 +599,14 @@ export const projects: Project[] = [
   {
     name: 'benchmark',
     slug: 'benchmark',
-    description: 'Compares Whisper and Wav2Vec2 transcription quality.',
+    description: 'Whisper and Wav2Vec2 speech models with WER/CER evaluation.',
     language: 'Python',
     category: 'Experiment',
     github: 'https://github.com/coccinella-labs/benchmark',
     overview:
-      "Compares OpenAI Whisper with Meta's Wav2Vec2 base model for transcription quality. The training package covers dataset, preprocessing, model, and evaluation, with tests run through run_tests.py and containerized runs in Docker.",
+      "Training scaffolding for OpenAI Whisper and Meta's Wav2Vec2 base model. WER and CER are implemented in the evaluation module but are not wired into a run: the entry point takes a single --model_type and calls train_model, so no comparison happens. The package covers dataset, preprocessing, model, and evaluation, with tests run through run_tests.py and containerized runs in Docker.",
     installation: 'pip install git+https://github.com/coccinella-labs/benchmark',
-    license: 'MIT',
+    license: 'Apache-2.0',
     status: 'Experimental',
     related: [],
   },
@@ -640,15 +640,15 @@ export const projects: Project[] = [
   {
     name: 'bitinfer',
     slug: 'bitinfer',
-    description: 'Faster model inference on Apple Silicon.',
-    language: 'C++',
+    description: 'Hugging Face encoder inference with float16 weights.',
+    language: 'Python',
     category: 'Library',
     github: 'https://github.com/coccinella-labs/bitinfer',
     overview:
-      'A Python library for faster model inference on Apple Silicon, tested with models from Hugging Face.',
+      'Hugging Face encoder inference on Apple Silicon using float16 weights, with state_dict caching, streaming, and a CLI. Halves memory on every model. Speed depends on model size: about 2.3x faster on distilbert-base-uncased, roughly a third slower on models small enough to be dominated by dispatch overhead. All measurements are CPU; MPS runs but is unmeasured.',
     installation: 'git clone https://github.com/coccinella-labs/bitinfer',
     license: 'MIT',
-    status: 'Stable',
+    status: 'Experimental',
     related: [],
   },
   {
@@ -1597,21 +1597,23 @@ overview:
   {
     name: 'ml',
     slug: 'ml',
-    description: 'Machine learning framework.',
+    description: 'MPI coordination scaffold for distributed training.',
     language: 'C++',
     category: 'Library',
     github: 'https://github.com/coccinella-labs/ml',
     overview:
-      'A distributed machine learning framework in C++17. It covers distributed training, real-time performance and task monitoring, and a web dashboard served on port 8080.',
+      'An MPI coordination scaffold in C++17 with a REST monitoring dashboard on port 8080. It ranks processes, reduces gradients across ranks, and broadcasts from rank 0. The learning is not implemented: batch gradients are index-derived, the parameter update is a no-op, and the data is randomly generated.',
     installation: 'git clone https://github.com/coccinella-labs/ml',
     license: 'Apache-2.0',
-    status: 'Stable',
+    status: 'Experimental',
     related: ['kernels', 'mlapi'],
     architecture:
-      'A small C++ machine-learning framework. The graph, the ops, and the memory management live in one readable core, which keeps it debuggable and easy to build on.',
+      'Three layers: DistributedTrainer owns the MPI collectives and the training loop, the benchmark files hold the process coordination, and the CLI parses arguments and aggregates metrics. There is no tensor library and no model.',
     capabilities: [
-      'Core tensor and op framework',
-      'Apple Silicon kernel backends',
+      'MPI rank coordination across three-rank test runs',
+      'Gradient all-reduce and rank-0 broadcast',
+      'REST dashboard and metrics endpoint on port 8080',
+      'Kubernetes manifests and a Helm chart',
     ],
   },
   {
