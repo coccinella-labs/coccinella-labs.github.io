@@ -1619,7 +1619,7 @@ overview:
   {
     name: 'mlapi',
     slug: 'mlapi',
-    description: 'Machine learning API.',
+    description: 'FastAPI service that serves a GPT-2 causal language model for text generation.',
     language: 'Python',
     category: 'Library',
     github: 'https://github.com/coccinella-labs/mlapi',
