@@ -1,0 +1,29 @@
+name: Sync repos
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check for unlisted repos
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/check-repos.mjs
+      - uses: peter-evans/create-pull-request@v6
+        with:
+          title: 'chore: sync unlisted repos'
+          branch: 'chore/sync-unlisted-repos'
+          commit-message: 'chore: update missing-repos.json'
+          body: 'Automated list of public repos not yet represented in src/lib/projects.ts.'
