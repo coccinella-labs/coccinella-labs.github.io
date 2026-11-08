@@ -1,6 +1,6 @@
 import { getOrgRepoCount } from "@/lib/org"
 import { projects } from "@/lib/projects"
-import { systems } from "@/lib/systems"
+import { systemCount } from "@/lib/systems"
 
 export default async function SysStatus() {
   return (
@@ -9,7 +9,7 @@ export default async function SysStatus() {
       <span title="Repositories on github.com/coccinella-labs, including infrastructure, websites, archives, and mirrors outside the project catalog">
         repositories: {await getOrgRepoCount()}
       </span>
-      <span>systems: {systems.length}</span>
+      <span>systems: {systemCount}</span>
       <a
         href="https://github.com/coccinella-labs"
         target="_blank"
